@@ -1,0 +1,386 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+	
+    <title>
+            {% block head_title %}
+            SERE | HONDURAS
+            {% endblock head_title  %}
+    </title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+	<link href="{% static 'base/source/bootstrap-3.3.6-dist/css/bootstrap.css'%}" rel="stylesheet">
+	<link href="{% static 'base/source/font-awesome-4.5.0/css/font-awesome.css'%}" rel="stylesheet">
+	<link href="{% static 'base/style/slider.css'%}" rel="stylesheet">
+    <link href="{% static 'base/style/mystyle.css'%}" rel="stylesheet">
+    
+    
+
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header">
+			<ul class="socialicon">
+				<li><a href="https://www.facebook.com/sistemaestadisticodereinsercionescolarhn/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="https://twitter.com/DeEstadistico" target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+			</ul>
+			<ul class="givusacall">
+				
+				
+				
+				<li>Tel : LINEA 104 // SECRETARIA DE EDUCACIÓN 2222-1374; 22221225 EXT. 4165</li>
+				
+				</ul>
+			
+			<ul class="logreg">
+				<li><a href="{%url 'generales:home_user'%}"> INICIAR SESIÓN </a> </li>
+				
+			</ul>
+			
+	</div>
+	<!-- Navbar Up -->
+	<nav class="topnavbar navbar-default topnav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
+					<span class="sr-only"> Toggle navigaion</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand logo" href="{% url 'generales:home'%}"><img src="{% static 'base/image/logo1.png'%}" alt="logo"></a>
+				
+			</div>	 
+		</div>
+		<div class="collapse navbar-collapse" id="upmenu">
+			<ul class="nav navbar-nav" id="navbarontop">
+				<li class="active"><a href="#">PRINCIPAL</a> </li>
+				<li class="active"><a href="#">ESTADISTICAS</a> </li>
+				<li class="active"><a href="#">CONTACTO</a> </li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DESCARGAS<span class="caret"></span></a>
+					<ul class="dropdown-menu dropdowncostume">
+						<li><a href="C:\python\cmder\APP_SERE_1\SERE\static\base\descargas">MANUAL DE USUARIO</a></li>
+						<li><a href="C:\python\cmder\APP_SERE_1\SERE\static\base\descargas">FORMATO DE DIAGNOSTICO NNA</a></li>
+
+			
+				
+				
+			</ul>
+			
+		</div>
+	</nav>
+</div>
+<!--_______________________________________ __________________________________ -->
+<div class="allcontain">
+	<div id="carousel-up" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner " role="listbox">
+			<div class="item active">
+				<img src="{% static 'base/image/port1.jpg'%}" alt="port1">
+				
+			</div>
+			<div class="item">
+				<img src="{% static 'base/image/port2.jpg'%}" alt="port2">
+			
+			</div>
+			<div class="item">
+				<img src="{% static 'base/image/port3.jpg'%}" alt="port3">
+			
+			</div>
+			<div class="item">
+				<img src="{% static 'base/image/port4.jpg'%}" alt="port4">
+			
+			</div>
+			<div class="item">
+				<img src="{% static 'base/image/port5.jpg'%}" alt="port5">
+			
+			</div>
+		</div>
+		
+	</div>
+</div>
+<!-- __________________________________________________--> 
+<div class="allcontain">
+	<div class="feturedsection">
+		<h1 class="text-center"><span class="bdots">&bullet;</span>SISTEMA ESTADISTICO DE REINSERCIÓN ESCOLAR
+		   &bullet;</h1>
+	</div>
+	<h1 class="text-center">&bullet;<img src="{% static 'base/image/logo2.png'%}" alt="logo"> &bullet;</h1>
+
+	<div class="feturedimage">
+		<div class="row firstrow">
+			<div class="col-lg-6 costumcol colborder1">
+				<div class="row costumrow">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
+						<img src="{% static 'base/image/cont1.jpg'%}" alt="porsche">
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
+						<div class="featurecontant">
+							<h1 style="text-decoration: underline;">OBJETIVO</h1>
+							<p style="text-align: justify; font-size: 20px;padding: 5px;">Garantizar el Derecho a la Educación de las Niñas, Niños y Adolescentes, que migran y retornan al Sistema Nacional de Educación, por Condiciones de Vulnerabilidad Social. </p>
+			 				
+			 				
+			 			
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 costumcol colborder2">
+				<div class="row costumrow">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
+						<img src="{% static 'base/image/cont2.jpg'%}" alt="porsche">
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
+						<div class="featurecontant">
+							<h1 style="text-decoration: underline;">COMPONENTES</h1>
+							<p style="text-align: justify; font-size: 20px;padding: 5px;">1.- Prevención<br>
+								2.- Promoción del Ingreso o Reingreso al Sistema Nacional de Educación.<br>
+								3.- Atención y Retención de Niñas, Niños y Adolescentes Migrantes     
+									 Identificados oficialmente, así como los No Identificados, en los Niveles 
+									 Educativos de Pre-Básica, Básica y Media.
+								 </p>
+			 				
+			 				
+			 			
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="feturedimage">
+		<div class="row firstrow">
+			<div class="col-lg-6 costumcol colborder3">
+				<div class="row costumrow">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
+						<img src="{% static 'base/image/cont3.jpg'%}" alt="porsche">
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
+						<div class="featurecontant">
+							<h1 style="text-decoration: underline;">BENEFICIARIOS</h1>
+							<p style="text-align: justify; font-size: 15px;padding: 5px;">El programa, atiende Niñas, Niños y Adolescentes, que migran (se retiran) y retornan (regresan) a los centros educativos del país, por las siguientes condiciones de vulnerabilidad social:
+<br>
+								•	Migración Irregular.<br>
+								•	Desplazamiento Forzado por la Violencia.<br>
+								•	Víctimas de Trata de Personas.<br>
+								•	Víctimas de Acoso, Abuso y Violación Sexual.<br>
+								•	Agricultura Migratoria.<br>
+								•	Extranjeros en condición de Refugio y Asilo.<br>
+								•	Otras condiciones de vulnerabilidad, propias del contexto de los educandos.
+								</p>
+			 				
+			 				
+			 			
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 costumcol colborder4">
+				<div class="row costumrow">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
+						<img src="{% static 'base/image/cont4.jpg'%}" alt="porsche">
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
+						<div class="featurecontant">
+							<h1 style="text-decoration: underline;">COBERTURA</h1>
+							<p style="text-align: justify; font-size: 20px;padding: 5px;">El programa, se implementa en los 18 departamentos del país, en todos los centros educativos de los Niveles Educativos de Prebásica, Básica y Media.
+								 </p>
+			 				
+			 				
+			 			
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- ______________________________________________-->
+<div class="latestcars">
+		<div class="feturedsection">
+				<h1 class="text-center"><span class="bdots">&bullet;</span>PROGRAMA NACIONAL DE ATENCION EDUCATIVA DE NIÑAS NIÑOS Y ADOLECENTES MIGRANTES RETORNADOS
+				   &bullet;</h1>
+			</div>
+</div>
+
+<!-- _______________________________________________-->
+	<div class="grid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal1.jpg'%}" alt="gal1">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal2.jpg'%}" alt="gal2">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal3.jpg'%}" alt="gal3">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal4.jpg'%}" alt="gal4">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal5.jpg'%}" alt="gal5">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal6.jpg'%}" alt="gal6">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal7.jpg'%}" alt="gal7">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="txthover">
+					<img src="{% static 'base/image/gal1.jpg'%}" alt="gal1">
+						<div class="txtcontent">
+						
+							<div class="simpletxt">
+								<h3 class="name">SERE</h3>
+								
+	 							
+							</div>
+						
+						</div>
+				</div>	 
+			</div>	
+		</div>
+	</div>
+<!-- _______________________________News Letter ____________________-->
+	<div class="newslettercontent">
+		<div class="leftside">
+			<img src="{% static 'base/image/border.png'%}" alt="border">
+			<h1>Total de NNAMR: 2509</h1>
+			<p>*NNAMR: Niños, Niñas y Adolescentes Migrantes Retornados</p>
+		</div>
+		<div class="rightside">
+			<img class="newsimage" src="{% static 'base/image/port10.jpg'%}" alt="port10">
+		
+			
+		</div>
+	</div>
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+		<div class="bottomlogo">
+		<span class="dotlogo">&bullet;</span><img src="{% static 'base/image/logo2.png'%}" alt="logo2"><span class="dotlogo">&bullet;;</span>
+		<ul class="nav">
+			<li role="presentation"><a href="#">HOME</a></li>
+			<li role="presentation"><a href="#/">DESCARGAS</a></li>
+			<li role="presentation"><a href="#/">ESTADISTICAS</a></li>
+			<li role="presentation"><a href="#/">CONTACTO</a></li>
+		</ul>
+		
+		CORREO: nnamigrantes@gmail.com <br>
+		"Juntos estamos logrando la transformación del Sistema Educativo Nacional" 
+		</div>
+		<div style="align-content: center; padding-left: 27%;padding-right: 27%;">
+		
+		
+	</div>
+	
+		 <img src="{% static 'base/image/line.png'%}" alt="line"> <br>
+		 <div class="bottomsocial">
+	        <a href="https://www.facebook.com/sistemaestadisticodereinsercionescolarhn/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a>
+		    <a href="https://twitter.com/DeEstadistico" target="_blank"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+			<a href="#"><i class="fa fa-youtube"></i></a>
+		</div>
+			<div class="footer">
+				<div class="copyright">
+				  &copy; Copy right 2020 | <a href="#">SERE 2020 </a>| <a href="#">SEDUC HN CORREO: nnamigrantes@gmail.com </a>
+				</div>
+				
+			</div>
+	</div>
+</div>
+
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/jquery.js'%}"></script>
+<script src="{% static 'base/source/js/isotope.js'%}"></script>
+<script src="{% static 'base/source/js/myscript.js'%}"></script> 
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/jquery.1.11.js'%}"></script>
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/bootstrap.js'%}"></script>
+</body>
+</html>

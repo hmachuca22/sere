@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% block contenido %}
+<form method="POST">
+    <div class="panel panel-default">
+        <h3 style="text-align: center;">Editar/Crear Registro Desplazamiento Interno</h3>
+              
+    
+        <div class="panel-body">
+            {% csrf_token %}
+            <div class="form-group as success">
+                <label class="control-label" for="inputSuccess">Region</label>
+                {{form.subcategoria}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Identidad</label>
+                {{form.identidadext}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Codigo Centro</label>
+                {{form.codigoce}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Centro Educativo</label>
+                {{form.centroeducativo}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Nombre Alumno</label>
+                {{form.descripcion}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Nivel Educativo</label>
+                {{form.niveleducativo}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Grado</label>
+                {{form.grado}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Edad</label>
+                {{form.edad}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Genero</label>
+                {{form.genero}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Direccion</label>
+                {{form.direccion}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">NNA</label>
+                {{form.NNA}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">PMTE</label>
+                {{form.PMTE}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">CS</label>
+                {{form.CS}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">TOTAL</label>
+                {{form.TOTAL}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Destino</label>
+                {{form.destino}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Estado</label>
+                {{form.estado}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Observaciones</label>
+                {{form.observaciones}}
+            </div>
+            <div class="form-group has-error" hidden="hidden">
+                <label class="control-label" for="inputError">Estado</label>
+                {{form.activo}}
+          </div>
+        </div>
+        
+        <button class="btn btn-danger" type="submit"><span class="fa fa-save">Guardar</span></button>
+        <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-success"><span class="fa fa-undo">Cancelar</span></a>
+    </div>
+
+</form>
+{% endblock contenido %}

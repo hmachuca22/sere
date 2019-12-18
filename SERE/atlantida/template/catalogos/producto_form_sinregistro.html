@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% block contenido %}
+<form method="POST">
+    <div class="panel panel-default">
+        <h3 style="text-align: center;">Editar/Crear Registro NNA</h3>
+            
+        <div class="panel-body">
+            {% csrf_token %}
+            <div class="form-group as success">
+                <label class="control-label" for="inputSuccess">Region</label>
+                {{form.subcategoria}}
+            </div>
+        
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Identidad</label>
+                {{form.identidadext}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Nombre</label>
+                {{form.descripcion}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Genero</label>
+                {{form.genero}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Edad</label>
+                {{form.edad}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Grado</label>
+                {{form.grado}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Centro Educativo</label>
+                {{form.centroeducativo}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Codigo CE</label>
+                {{form.codigoce}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Origen</label>
+                {{form.origen}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Telefono</label>
+                {{form.telefono}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">ID Encargado</label>
+                {{form.idencargado}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Nombre Encargado</label>
+                {{form.nombreencargado}}
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Observaciones</label>
+                {{form.observaciones}}
+            </div>
+        </div>
+        <div class="form-group has-error">
+              <label class="control-label" for="inputError">Estado</label>
+              {{form.activo}}
+        </div>
+        <button class="btn btn-danger" type="submit"><span class="fa fa-save">Guardar</span></button>
+        <a href="{% url 'catalogos:producto_list' %}" class="btn btn-success"><span class="fa fa-undo">Cancelar</span></a>
+    </div>
+
+</form>
+{% endblock contenido %}

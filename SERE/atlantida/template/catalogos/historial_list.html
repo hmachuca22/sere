@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% block contenido %}
+<!-- Earnings (Monthly) Card Example -->
+
+<div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <h2 style="text-align: center;">HISTORIAL EN SACE</h2>
+              <div class="panel-heading">
+                 <a href="{% url 'catalogos:producto_list' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
+                 <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
+              </div>
+              <br>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+  <table width="100%" class="=table tabñe-striped table-bordered table-hover" id="dataTables-example">
+      <thead>
+          <tr>
+            <th>Periodo</th>
+  <th>ID/Nombre</th>
+  <th>Departamento</th>
+  <th>Municipio</th>
+  <th>Grado</th>
+  <th>Cod Centro</th>
+  <th>Nombre Centro</th>
+
+          </tr>
+      </thead>
+      <tbody>
+      {% if historial %}
+         {% for historial in historial %}
+  <tr>
+    <th>{{ historial.periodo }}</th>
+      <td>{{ historial.identidadsace }}</td>
+      <th>{{ historial.departamento }}</th>
+      <th>{{ historial.municipio }}</th>
+      <th>{{ historial.grado }}</th>
+      <th>{{ historial.codcentro }}</th>
+      <th>{{ historial.nombrecentro }}</th>
+  </tr>
+        {% endfor %}
+
+  {% else %}
+  <h1>No hay Historial</h1>
+  {% endif %}
+      </tbody>
+  </table>
+  
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+{% endblock contenido%}
