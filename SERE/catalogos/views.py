@@ -25,7 +25,7 @@ class CategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic
     template_name='catalogos/categoria_form.html'
     context_object_name = 'obj'
     form_class=CategoriaForm
-    success_url= reverse_lazy("catalogos:categoria_list") 
+    success_url= reverse_lazy("catalogos:categoria_list")
     login_url = 'generales:sin_privilegios'
     success_message="Categoria Creada Satisfactoriamente"
 
@@ -59,7 +59,7 @@ class SubCategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,gene
     template_name='catalogos/subcategoria_form.html'
     context_object_name = 'obj'
     form_class=SubCategoriaForm
-    success_url= reverse_lazy("catalogos:subcategoria_list") 
+    success_url= reverse_lazy("catalogos:subcategoria_list")
     login_url = 'generales:sin_privilegios'
     success_message="Sub Categoria Creada Satisfactoriamente"
 
@@ -87,6 +87,9 @@ class ProductoView(LoginRequiredMixin,generic.ListView):
     template_name = "catalogos/producto_list.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+#Función para la lista de los productos del departamento de ATLANTIDA
+    def get_queryset(self):
+        return Producto.objects.filter(pk = 4)
 
 class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
     model = ProductoINTERNO
@@ -106,7 +109,7 @@ class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.
     template_name='catalogos/producto_form.html'
     context_object_name = 'obj'
     form_class=ProductoForm
-    success_url= reverse_lazy("catalogos:producto_list") 
+    success_url= reverse_lazy("catalogos:producto_list")
     login_url = 'generales:sin_privilegios'
     success_message="NNA Agregado correctamente"
 
@@ -116,7 +119,7 @@ class ProductoNewINTERNOS(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,
     template_name='catalogos/producto_form_internos.html'
     context_object_name = 'obj'
     form_class=ProductoFormINTERNOS
-    success_url= reverse_lazy("catalogos:producto_list_internos") 
+    success_url= reverse_lazy("catalogos:producto_list_internos")
     login_url = 'generales:sin_privilegios'
     success_message="Registro Agregado correctamente"
 
@@ -126,7 +129,7 @@ class ProductoNewSINREGISTRO(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegi
     template_name='catalogos/producto_form_sinregistro.html'
     context_object_name = 'obj'
     form_class=ProductoFormSINREGISTRO
-    success_url= reverse_lazy("catalogos:producto_list_sinregistro") 
+    success_url= reverse_lazy("catalogos:producto_list_sinregistro")
     login_url = 'generales:sin_privilegios'
     success_message="NNA Agregado correctamente"
 
@@ -189,7 +192,7 @@ def categoria_print(self, pk=None):
     else:
         todascategorias = [(p.id, p.descripcion, p.activo, p.creado)
                            for p in Categoria.objects.filter(id=pk)]
-    
+
     t = Table([headings] + todascategorias)
     t.setStyle(TableStyle(
         [
@@ -210,7 +213,3 @@ def historial_list(request):
     historial = DETALLESACE.objects.select_related('identidadsace')
     contexto = {'historial':historial}
     return render(request,'catalogos/historial_list.html', contexto)
-
-
-
-     

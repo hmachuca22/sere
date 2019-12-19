@@ -19,18 +19,26 @@ class ProductoViewATLANTIDA(LoginRequiredMixin,generic.ListView):
     template_name = "atlantida/producto_list_atlantida.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    #Función para la lista de los productos del departamento de ATLANTIDA
+    def get_queryset(self):
+        return Producto.objects.filter(id = 2)
+
 
 class ProductoViewINTERNOSATLANTIDA(LoginRequiredMixin,generic.ListView):
     model = ProductoINTERNO
     template_name = "catalogos/producto_list_internos.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_queryset(self):
+        return ProductoINTERNO.objects.filter(id = 3)
 
 class ProductoViewSINREGISTROATLANTIDA(LoginRequiredMixin,generic.ListView):
     model = ProductoSINREGISTRO
     template_name = "catalogos/producto_list_sinregistro.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_queryset(self):
+        return ProductoSINREGISTRO.objects.filter(id = 2)
 
 class ProductoNewATLANTIDA(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_producto"
@@ -38,7 +46,7 @@ class ProductoNewATLANTIDA(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios
     template_name='catalogos/producto_form.html'
     context_object_name = 'obj'
     form_class=ProductoForm
-    success_url= reverse_lazy("catalogos:producto_list") 
+    success_url= reverse_lazy("catalogos:producto_list")
     login_url = 'generales:sin_privilegios'
     success_message="NNA Agregado correctamente"
 
@@ -48,7 +56,7 @@ class ProductoNewINTERNOSATLANTIDA(SuccessMessageMixin,LoginRequiredMixin,SinPri
     template_name='catalogos/producto_form_internos.html'
     context_object_name = 'obj'
     form_class=ProductoFormINTERNOS
-    success_url= reverse_lazy("catalogos:producto_list_internos") 
+    success_url= reverse_lazy("catalogos:producto_list_internos")
     login_url = 'generales:sin_privilegios'
     success_message="Registro Agregado correctamente"
 
@@ -58,7 +66,7 @@ class ProductoNewSINREGISTROATLANTIDA(SuccessMessageMixin,LoginRequiredMixin,Sin
     template_name='catalogos/producto_form_sinregistro.html'
     context_object_name = 'obj'
     form_class=ProductoFormSINREGISTRO
-    success_url= reverse_lazy("catalogos:producto_list_sinregistro") 
+    success_url= reverse_lazy("catalogos:producto_list_sinregistro")
     login_url = 'generales:sin_privilegios'
     success_message="NNA Agregado correctamente"
 
@@ -121,7 +129,7 @@ def categoria_print(self, pk=None):
     else:
         todascategorias = [(p.id, p.descripcion, p.activo, p.creado)
                            for p in Categoria.objects.filter(id=pk)]
-    
+
     t = Table([headings] + todascategorias)
     t.setStyle(TableStyle(
         [

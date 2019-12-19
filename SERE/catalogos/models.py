@@ -1,8 +1,8 @@
 from django.db import models
-
 from generales.models import ClaseModelo
-
 # Create your models here.
+
+
 
 class SACE(models.Model):
     identidadsace=models.CharField(max_length=13,primary_key=True)
@@ -60,21 +60,21 @@ class Producto(ClaseModelo):
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.ForeignKey(SACE,on_delete=models.CASCADE)
     descripcion=models.CharField(max_length=100)
-    genero=models.CharField(max_length=1) 
-    edad=models.CharField(max_length=2) 
-    grado=models.CharField(max_length=2) 
-    centroeducativo=models.CharField(max_length=100) 
-    codigoce=models.CharField(max_length=50) 
-    origen=models.CharField(max_length=200) 
+    genero=models.CharField(max_length=1)
+    edad=models.CharField(max_length=2)
+    grado=models.CharField(max_length=2)
+    centroeducativo=models.CharField(max_length=100)
+    codigoce=models.CharField(max_length=50)
+    origen=models.CharField(max_length=200)
     telefono=models.CharField(max_length=50)
     idencargado=models.CharField(max_length=13)
     nombreencargado=models.CharField(max_length=100)
     observaciones=models.CharField(max_length=200)
-    
+
 
     def __str__(self):
         return '{}'.format(self.descripcion)
-    
+
     def save(self):
         self.descripcion = self.descripcion.upper()
         super(Producto, self).save()
@@ -85,25 +85,25 @@ class Producto(ClaseModelo):
 class ProductoINTERNO(ClaseModelo):
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.ForeignKey(SACE,on_delete=models.CASCADE)
-    centroeducativo=models.CharField(max_length=100) 
-    codigoce=models.CharField(max_length=50) 
+    centroeducativo=models.CharField(max_length=100)
+    codigoce=models.CharField(max_length=50)
     descripcion=models.CharField(max_length=100)
     NNA=models.CharField(max_length=100)
     PMTE=models.CharField(max_length=100)
     CS=models.CharField(max_length=100)
     TOTAL=models.CharField(max_length=100)
     niveleducativo=models.CharField(max_length=100)
-    grado=models.CharField(max_length=30) 
-    edad=models.CharField(max_length=2)  
-    genero=models.CharField(max_length=1) 
-    direccion=models.CharField(max_length=200) 
+    grado=models.CharField(max_length=30)
+    edad=models.CharField(max_length=2)
+    genero=models.CharField(max_length=1)
+    direccion=models.CharField(max_length=200)
     destino=models.CharField(max_length=200)
     estado=models.CharField(max_length=50)
     observaciones=models.CharField(max_length=200)
 
     def __str__(self):
         return '{}'.format(self.descripcion)
-    
+
     def save(self):
         self.descripcion = self.descripcion.upper()
         super(ProductoINTERNO, self).save()
@@ -135,21 +135,21 @@ class ProductoSINREGISTRO(ClaseModelo):
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.CharField(max_length=13)
     descripcion=models.CharField(max_length=100)
-    genero=models.CharField(max_length=1) 
-    edad=models.CharField(max_length=2) 
-    grado=models.CharField(max_length=2) 
-    centroeducativo=models.CharField(max_length=100) 
-    codigoce=models.CharField(max_length=50) 
-    origen=models.CharField(max_length=200) 
+    genero=models.CharField(max_length=1)
+    edad=models.CharField(max_length=2)
+    grado=models.CharField(max_length=2)
+    centroeducativo=models.CharField(max_length=100)
+    codigoce=models.CharField(max_length=50)
+    origen=models.CharField(max_length=200)
     telefono=models.CharField(max_length=50)
     idencargado=models.CharField(max_length=13)
     nombreencargado=models.CharField(max_length=100)
     observaciones=models.CharField(max_length=200)
-    
+
 
     def __str__(self):
         return '{}'.format(self.descripcion)
-    
+
     def save(self):
         self.descripcion = self.descripcion.upper()
         super(ProductoSINREGISTRO, self).save()
@@ -157,6 +157,6 @@ class ProductoSINREGISTRO(ClaseModelo):
     class Meta:
         verbose_name_plural= "ProductosSINREGISTROS"
 
-
-
-
+class Perfil(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Categoria,on_delete=models.CASCADE)
