@@ -19,7 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path('',include(('generales.urls','generales'), namespace='generales')),
     path('catalogos/',include(('catalogos.urls','catalogos'), namespace='catalogos')),
-    path('factura/',include(('salidas.urls','salidas'), namespace='salidas')),
     path('atlantida/',include(('atlantida.urls','atlantida'), namespace='atlantida')),
     path('admin/', admin.site.urls),
 ]
