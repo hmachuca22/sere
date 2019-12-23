@@ -158,7 +158,7 @@ class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
     def get_queryset(self):
         ProductoINTERNO
         print(self.request.user)
-        return ProductoINTERNO.objects.filter(subcategoria__categoria__pk =3)
+        return ProductoINTERNO.objects.filter(subcategoria__categoria__pk =2)
 
 
 class ProductoViewSINREGISTRO(LoginRequiredMixin,generic.ListView):
