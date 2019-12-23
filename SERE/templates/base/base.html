@@ -80,7 +80,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Acciones:</h6>
               <a class="collapse-item" href="{% url 'catalogos:producto_list' %}"> Registros Externos</a>
-              <a class="collapse-item" href="{% url 'catalogos:producto_list_internos' %}"> Registros Internos</a>
+              <a class="collapse-item" href="{% url 'catalogos:producto_list_internos' pk=d.pk %}"> Registros Internos</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
               <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
               <a class="collapse-item" href="#"> Estadisticas</a>
@@ -88,7 +88,7 @@
           </div>
     </li>
     {% endfor %}
-      <hr class="sidebar-divider">        
+      <hr class="sidebar-divider">
       {% if perms.catalogos.view_categoria %}
       <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSystem"

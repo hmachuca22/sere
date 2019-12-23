@@ -55,7 +55,7 @@ class SubCategoria(ClaseModelo):
     class Meta:
         verbose_name_plural = "Sub Categorías"
         unique_together = ('categoria','descripcion')
-
+#Externo
 class Producto(ClaseModelo):
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.ForeignKey(SACE,on_delete=models.CASCADE)

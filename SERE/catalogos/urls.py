@@ -1,5 +1,5 @@
 from django.urls import path
-
+#
 from catalogos.views import CategoriaView
 from catalogos.views import CategoriaNew
 from catalogos.views import CategoriaEdit
@@ -24,7 +24,7 @@ urlpatterns = [
     path('producto/new', ProductoNew.as_view(), name='producto_new'),
     path('producto/edit/<int:pk>', ProductoEdit.as_view(), name='producto_edit'),
 
-    path('productos/internos', ProductoViewINTERNOS.as_view(), name='producto_list_internos'),
+    path('productos/internos/(?P<pk>\d+)/$', ProductoViewINTERNOS.as_view(), name='producto_list_internos'),
     path('producto/new/internos', ProductoNewINTERNOS.as_view(), name='producto_new_internos'),
     path('producto/edit/internos/<int:pk>', ProductoEditINTERNOS.as_view(), name='producto_edit_internos'),
 

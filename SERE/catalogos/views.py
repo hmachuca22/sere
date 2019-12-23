@@ -155,6 +155,11 @@ class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
+    def get_queryset(self):
+        ProductoINTERNO
+        print(self.request.user)
+        return ProductoINTERNO.objects.filter(subcategoria__categoria__pk =3)
+
 
 class ProductoViewSINREGISTRO(LoginRequiredMixin,generic.ListView):
     model = ProductoSINREGISTRO
