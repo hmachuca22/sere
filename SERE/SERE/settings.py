@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'SERE.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SERE_SE',
+        'NAME': 'SERE_SE_2',
         'USER': 'postgres',
-        'PASSWORD': 'POSTGRES',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

@@ -12,12 +12,27 @@ from catalogos.models import SubCategoria
 from catalogos.models import Producto,DETALLESACE,ProductoSINREGISTRO,ProductoINTERNO
 from catalogos.forms import SubCategoriaForm,CategoriaForm,ProductoForm,ProductoFormSINREGISTRO,ProductoFormINTERNOS
 from generales.views import SinPrivilegios
+from catalogos.models import *
 
 class CategoriaView(LoginRequiredMixin,generic.ListView):
     model = Categoria
     template_name = "catalogos/categoria_list.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
+
 
 class CategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_categoria"
@@ -28,6 +43,7 @@ class CategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic
     success_url= reverse_lazy("catalogos:categoria_list")
     login_url = 'generales:sin_privilegios'
     success_message="Categoria Creada Satisfactoriamente"
+
 
 class CategoriaEdit(LoginRequiredMixin,SinPrivilegios,generic.UpdateView):
     permission_required = "catalogos.change_categoria"
@@ -52,6 +68,19 @@ class SubCategoriaView(LoginRequiredMixin,generic.ListView):
     template_name = "catalogos/subcategoria_list.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
 
 class SubCategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_subcategoria"
@@ -89,19 +118,62 @@ class ProductoView(LoginRequiredMixin,generic.ListView):
     login_url = 'generales:login'
 #Función para la lista de los productos del departamento de ATLANTIDA
     def get_queryset(self):
-        return Producto.objects.filter(pk = 4)
+        ProductoView
+        print(self.request.user)
+        return Producto.objects.filter(subcategoria__categoria__pk =1)
+
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
 
 class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
     model = ProductoINTERNO
     template_name = "catalogos/producto_list_internos.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
+
 
 class ProductoViewSINREGISTRO(LoginRequiredMixin,generic.ListView):
     model = ProductoSINREGISTRO
     template_name = "catalogos/producto_list_sinregistro.html"
     context_object_name = "obj"
     login_url = 'generales:login'
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
 
 class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_producto"
@@ -212,4 +284,14 @@ def categoria_print(self, pk=None):
 def historial_list(request):
     historial = DETALLESACE.objects.select_related('identidadsace')
     contexto = {'historial':historial}
+    #Declaramos el arreglo departamento
+    departamentos = []
+    #recorremos los departamentos a los cuales tiene acceso el usuario
+    for p in Perfil.objects.filter(user = request.user):
+        departamentos.append(
+                p.departamento.id
+        )
+        #filtramos el contexto con el arreglo anterior
+    contexto['Cantidad']= len(departamentos)
+    contexto['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
     return render(request,'catalogos/historial_list.html', contexto)

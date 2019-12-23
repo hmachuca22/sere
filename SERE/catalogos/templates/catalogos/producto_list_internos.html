@@ -1,8 +1,6 @@
 {% extends 'base/base.html' %}
-
 {% block contenido %}
 <!-- Earnings (Monthly) Card Example -->
-
 <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -11,15 +9,15 @@
               <div class="panel-heading">
                  <a href="{% url 'catalogos:producto_new_internos' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Nueva</a>
                  <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
-                
-                 
+
+
               </div>
               <br>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 <table width="100%" class="=table tabñe-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                       <tr>
-             
+
               <th>Region</th>
               <th>Descripcion</th>
               <th>Cod Centro</th>
@@ -36,7 +34,7 @@
                   <tbody>
                       {% for item in obj %}
               <tr>
-                  
+
                   <th>{{ item.subcategoria}}</th>
                   <th>{{ item.identidadext}}</th>
                   <th>{{ item.codigoce}}</th>
@@ -57,10 +55,10 @@
               {% endfor %}
                   </tbody>
               </table>
-  
+
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>

@@ -158,5 +158,9 @@ class ProductoSINREGISTRO(ClaseModelo):
         verbose_name_plural= "ProductosSINREGISTROS"
 
 class Perfil(models.Model):
-    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
-    departamento = models.ForeignKey(Categoria,on_delete=models.CASCADE)
+    # user = models.OneToManyField('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Categoria,related_name = 'departamento',unique=True ,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}'.format(self.user , self.departamento)

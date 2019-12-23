@@ -30,7 +30,19 @@ class ProductoViewINTERNOSATLANTIDA(LoginRequiredMixin,generic.ListView):
     context_object_name = "obj"
     login_url = 'generales:login'
     def get_queryset(self):
-        return ProductoINTERNO.objects.filter(id = 3)
+        #Declaramos el arreglo departamento
+        departamentos = []
+        context = super(Home_user, self).get_context_data(**kwargs)
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
+        #ProductoINTERNO.objects.filter(id = 3)
 
 class ProductoViewSINREGISTROATLANTIDA(LoginRequiredMixin,generic.ListView):
     model = ProductoSINREGISTRO
@@ -38,7 +50,19 @@ class ProductoViewSINREGISTROATLANTIDA(LoginRequiredMixin,generic.ListView):
     context_object_name = "obj"
     login_url = 'generales:login'
     def get_queryset(self):
-        return ProductoSINREGISTRO.objects.filter(id = 2)
+        #Declaramos el arreglo departamento
+        departamentos = []
+        context = super(Home_user, self).get_context_data(**kwargs)
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
+        #ProductoSINREGISTRO.objects.filter(id = 2)
 
 class ProductoNewATLANTIDA(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_producto"
