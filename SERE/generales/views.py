@@ -29,6 +29,7 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
     login_url='generales:login'
     def get_context_data(self, **kwargs):
         #Declaramos el arreglo departamento
+        dep_grap = []
         departamentos = []
         context = super(Home_user, self).get_context_data(**kwargs)
         #recorremos los departamentos a los cuales tiene acceso el usuario
@@ -36,9 +37,13 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
             departamentos.append(
                     p.departamento.id
             )
+            dep_grap.append(
+                    p.departamento.descripcion
+            )
         #filtramos el contexto con el arreglo anterior
-        context['Cantidad']= len(departamentos) 
+        context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        context['dep_grap'] = dep_grap
         return context
 
 class HomeSinPrivilegios(generic.TemplateView):

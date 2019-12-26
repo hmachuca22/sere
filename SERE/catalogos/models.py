@@ -57,6 +57,16 @@ class SubCategoria(ClaseModelo):
         unique_together = ('categoria','descripcion')
 #Externo
 class Producto(ClaseModelo):
+    class Estado:
+        INGRESADO = 'Ingresado'
+        VALIDADO = 'Validado'
+        PENDIENTE = 'Pendiente'
+
+        CHOICES = (
+            (INGRESADO,'Ingresado'),
+            (VALIDADO,'Validado'),
+            (PENDIENTE,'Pendiente'),
+        )
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.ForeignKey(SACE,on_delete=models.CASCADE)
     descripcion=models.CharField(max_length=100)
@@ -70,6 +80,7 @@ class Producto(ClaseModelo):
     idencargado=models.CharField(max_length=13)
     nombreencargado=models.CharField(max_length=100)
     observaciones=models.CharField(max_length=200)
+    estado = models.CharField(max_length = 40,choices=Estado.CHOICES,default='Ingresado',help_text='Situación actual del Alumno')
 
 
     def __str__(self):
@@ -83,6 +94,16 @@ class Producto(ClaseModelo):
         verbose_name_plural= "Productos"
 
 class ProductoINTERNO(ClaseModelo):
+    class Estado:
+        INGRESADO = 'Ingresado'
+        VALIDADO = 'Validado'
+        PENDIENTE = 'Pendiente'
+
+        CHOICES = (
+            (INGRESADO,'Ingresado'),
+            (VALIDADO,'Validado'),
+            (PENDIENTE,'Pendiente'),
+        )
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.ForeignKey(SACE,on_delete=models.CASCADE)
     centroeducativo=models.CharField(max_length=100)
@@ -100,6 +121,7 @@ class ProductoINTERNO(ClaseModelo):
     destino=models.CharField(max_length=200)
     estado=models.CharField(max_length=50)
     observaciones=models.CharField(max_length=200)
+    estado = models.CharField(max_length = 40,choices=Estado.CHOICES,default='Ingresado',help_text='Situación actual del Alumno')
 
     def __str__(self):
         return '{}'.format(self.descripcion)
@@ -132,6 +154,16 @@ class DETALLESACE(models.Model):
         verbose_name="Detalle de Alumno"
 
 class ProductoSINREGISTRO(ClaseModelo):
+    class Estado:
+        INGRESADO = 'Ingresado'
+        VALIDADO = 'Validado'
+        PENDIENTE = 'Pendiente'
+
+        CHOICES = (
+            (INGRESADO,'Ingresado'),
+            (VALIDADO,'Validado'),
+            (PENDIENTE,'Pendiente'),
+        )
     subcategoria=models.ForeignKey(SubCategoria,on_delete=models.CASCADE)
     identidadext=models.CharField(max_length=13)
     descripcion=models.CharField(max_length=100)
@@ -145,6 +177,7 @@ class ProductoSINREGISTRO(ClaseModelo):
     idencargado=models.CharField(max_length=13)
     nombreencargado=models.CharField(max_length=100)
     observaciones=models.CharField(max_length=200)
+    estado = models.CharField(max_length = 40,choices=Estado.CHOICES,default='Ingresado',help_text='Situación actual del Alumno')
 
 
     def __str__(self):

@@ -23,7 +23,6 @@
 
 
 
-
   <!-- Datatable-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.css"/>
 
@@ -62,6 +61,9 @@
       <div class="sidebar-heading">
         Menu
       </div>
+    {% for d_ in dep_grap%}
+        <strong>{{d_.descripcion}}</strong>
+    {% endfor %}
     {%if not Departamentos %}
         <strong> Vacio</strong>
     {%endif%}
@@ -79,10 +81,12 @@
           <div id="collapse{{d.descripcion}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Acciones:</h6>
-              <a class="collapse-item" href="{% url 'catalogos:producto_list' %}"> Registros Externos</a>              
+                <a class="collapse-item" href="{% url 'catalogos:listar_productos' pk=d.id %}"> Registros Externos</a>
+				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Registros Internos</a>
+				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Productos sin registro</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
-              <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
-              <a class="collapse-item" href="#"> Estadisticas</a>
+                <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
+                <a class="collapse-item" href="#"> Estadisticas</a>
             </div>
           </div>
     </li>
@@ -100,8 +104,8 @@
               <h6 class="collapse-header">Acciones:</h6>
               <a class="collapse-item" href="{% url 'catalogos:categoria_list' %}"> Departamentos</a>
               <a class="collapse-item" href="{% url 'catalogos:subcategoria_list' %}"> Municipios</a>
-              <a class="collapse-item" href="{% url 'catalogos:producto_list' %}"> Migracion Externa</a>
-              <a class="collapse-item" href="{% url 'catalogos:producto_list_internos' %}"> Migracion Interna</a>
+              <a class="collapse-item" href="{% url 'catalogos:producto_list'%}"> Migración Externos</a>
+              <a class="collapse-item" href="{% url 'catalogos:producto_list_internos' %}"> Migración Interna</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
               <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
               <a class="collapse-item" href="#"> Estadisticas</a>
@@ -306,7 +310,6 @@
 
   <!-- Page level custom scripts archivos -->
   <script src="{% static 'base/js/demo/chart-area-demo.js' %}"></script>
-  <script src="{% static 'base/js/demo/chart-pie-demo.js' %}"></script>
   <script src="{% static 'base/js/demo/chart-bar-demo.js' %}"></script>
 
   <!-- Datatable-->
@@ -314,6 +317,40 @@
 
   <script>
       $(document).ready( function () {
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+    // Pie Chart Example
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: "{{dep_grap}}",
+        datasets: [{
+          data: [55, 30, 15],
+          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+          hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+          hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false
+        },
+        cutoutPercentage: 80,
+      },
+    });
           $('#dataTables-example').DataTable(
               {
                   responsive: true
