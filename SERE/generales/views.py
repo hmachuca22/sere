@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
+from json import dumps
+from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from catalogos.models import Categoria,Perfil
+from catalogos.models import Categoria,Perfil,Producto,ProductoINTERNO,ProductoSINREGISTRO
 from django.views import generic
 
 # Create your views here.
@@ -33,6 +35,7 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
         departamentos = []
         context = super(Home_user, self).get_context_data(**kwargs)
         #recorremos los departamentos a los cuales tiene acceso el usuario
+
         for p in Perfil.objects.filter(user = self.request.user):
             departamentos.append(
                     p.departamento.id
@@ -40,10 +43,26 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
             dep_grap.append(
                     p.departamento.descripcion
             )
+		#Productos Externos
+        productos = Producto.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+		#Productos Internos
+        productosinternos = ProductoINTERNO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+		#Productos Sin registro
+        productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+        print(productos)
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
-        context['dep_grap'] = dep_grap
+        context['dep_grap'] = Perfil.objects.filter(user = self.request.user)
+        context['productos'] = productos
+        context['productosinternos'] = productosinternos
+        context['productossinregistro'] = productossinregistro
         return context
 
 class HomeSinPrivilegios(generic.TemplateView):

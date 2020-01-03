@@ -120,7 +120,13 @@ class ProductoView(LoginRequiredMixin,generic.ListView):
 #Función para la lista de los productos del departamento de ATLANTIDA
 	def get_queryset(self):
 		ProductoView
-		print(self.request.user)
+		productos = []
+		#recorremos los departamentos a los cuales tiene acceso el usuario
+		context = super().get_context_data(**kwargs)
+		for p in Perfil.objects.filter(user = self.request.user):
+			departamentos.append(
+					p.departamento.id
+			)
 		return Producto.objects.filter(subcategoria__categoria__pk =1)
 
 	def get_context_data(self,**kwargs):

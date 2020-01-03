@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block contenido %}
 <!-- Earnings (Monthly) Card Example -->
 
@@ -29,7 +29,7 @@
           </tr>
       </thead>
       <tbody>
-          {% for item in Producto %}
+          {% for item in obj %}
   <tr>
 
       <th>{{ item.subcategoria}}--{{item.pk}}</th>
@@ -52,4 +52,16 @@
           </div>
         </div>
       </div>
+
+ <!-- Bootstrap core JavaScript-->
+ <script src="{% static 'base/js/jquery.min.js' %}"></script>
+ <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);});
+</script>
 {% endblock contenido%}
