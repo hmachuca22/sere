@@ -1,10 +1,9 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block contenido %}
-<form method="POST">
+<form method="POST" name="formulario">
     <div class="panel panel-default">
         <h3 style="text-align: center;">Editar/Crear Registro Desplazamiento Interno</h3>
-              
-    
         <div class="panel-body">
             {% csrf_token %}
             <div class="form-group as success">
@@ -68,10 +67,6 @@
                 {{form.destino}}
             </div>
             <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Estado</label>
-                {{form.estado}}
-            </div>
-            <div class="form-group has-warning">
                 <label class="control-label" for="inputWarning">Observaciones</label>
                 {{form.observaciones}}
             </div>
@@ -80,10 +75,74 @@
                 {{form.activo}}
           </div>
         </div>
-        
-        <button class="btn btn-danger" type="submit"><span class="fa fa-save">Guardar</span></button>
-        <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-success"><span class="fa fa-undo">Cancelar</span></a>
+<div class="card text-center">
+	<div class="card-header">
+    	Estado del Proceso
+  	</div>
+  	<div class="card-body">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		{% if obj == none %}
+			<label class="btn btn-outline-primary btn-lg active">
+			<input type="radio" name="estado" id="estado"  value = "1" checked> Ingresado</label>
+			<label class="btn btn-outline-warning btn-lg">
+		  	<input type="radio" name="estado" id="estado" value = "2"> Validado
+			</label>
+			<label class="btn btn-outline-danger btn-lg">
+		  	<input type="radio" name="estado" id="estado" value = "3"> Pendiente
+			</label>
+		{% elif obj.estado  == 1 %}
+			<label class="btn btn-outline-primary btn-lg active">
+			<input type="radio" name="estado" id="estado" value = "1" checked> Ingresado</label>
+			<label class="btn btn-outline-warning btn-lg">
+			  <input type="radio" name="estado" id="estado" value = "2"> Validado
+			</label>
+			<label class="btn btn-outline-danger btn-lg">
+			  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
+			</label>
+		{% elif obj.estado  == 2 %}
+			<label class="btn btn-outline-primary btn-lg ">
+			<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+			<label class="btn btn-outline-warning btn-lg active" >
+			<input type="radio" name="estado" id="estado" value = "2" checked> Validado</label>
+			<label class="btn btn-outline-danger btn-lg">
+			  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
+			</label>
+		 {% elif obj.estado  == 3 %}
+			<label class="btn btn-outline-primary btn-lg ">
+			<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+			<label class="btn btn-outline-warning btn-lg" >
+			  <input type="radio" name="estado" id="estado" value = "2" > Validado
+			</label>
+			<label class="btn btn-outline-danger btn-lg active" >
+			  <input type="radio" name="estado" id="estado" value = "3" checked> Pendiente
+		    </label>
+		{% endif %}
+</div>
+</div>
+</div>
+
+	<div class="card text-center">
+		 <div class="card-header">
+	    Opciones
+	  </div>
+	  <div class="card-body">
+        <button class="btn btn-success btn-lg" type="submit"><span class="fa fa-save"> </span> Guardar </button>
+        <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-danger btn-lg"><span class="fa fa-undo"> </span>  Cancelar</a>
+	  </div>
+	</div>
     </div>
 
 </form>
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#formulario').on('submit', function(event){
+    	event.preventDefault();
+    	console.log("form submitted!")  // sanity check
+    create_post();
+	});
+	 });
+</script>
 {% endblock contenido %}

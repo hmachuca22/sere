@@ -83,7 +83,7 @@
               <h6 class="collapse-header">Acciones:</h6>
                 <a class="collapse-item" href="{% url 'catalogos:listar_productos' pk=d.id %}"> Registros Externos</a>
 				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Registros Internos</a>
-				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Productos sin registro</a>
+				<a class="collapse-item" href="{% url 'catalogos:listar_productos_sinregistro' pk=d.id %}"> Productos sin registro</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
                 <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
                 <a class="collapse-item" href="#"> Estadisticas</a>
@@ -310,7 +310,7 @@
 
   <!-- Datatable-->
   <script type="text/javascript" src="{% static 'base/js/datatables.min.js' %}"></script>
-  
+
   </body>
 
 </html>

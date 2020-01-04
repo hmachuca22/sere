@@ -5,9 +5,7 @@
         <h3 style="text-align: center;">Editar/Crear Registro NNA</h3>
               <div class="panel-heading" style="text-align: right;">
                  <a href="{% url 'catalogos:producto_list_sinregistro' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> SIN REGISTRO</a>
-
               </div>
-
         <div class="panel-body">
             {% csrf_token %}
             <div class="form-group as success">
@@ -64,12 +62,60 @@
                 {{form.observaciones}}
             </div>
         </div>
-        <div class="form-group has-error">
-              <label class="control-label" for="inputError">Estado</label>
-              {{form.estado}}
-        </div>
-        <button class="btn btn-danger" type="submit"><span class="fa fa-save">Guardar</span></button>
-        <a href="{% url 'catalogos:producto_list' %}" class="btn btn-success"><span class="fa fa-undo">Cancelar</span></a>
+        <div class="card text-center">
+			<div class="card-header">
+		    	Estado del Proceso
+		  	</div>
+		  	<div class="card-body">
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				{% if obj == none %}
+					<label class="btn btn-outline-primary btn-lg active">
+					<input type="radio" name="estado" id="estado"  value = "1" checked> Ingresado</label>
+					<label class="btn btn-outline-warning btn-lg">
+				  	<input type="radio" name="estado" id="estado" value = "2"> Validado
+					</label>
+					<label class="btn btn-outline-danger btn-lg">
+				  	<input type="radio" name="estado" id="estado" value = "3"> Pendiente
+					</label>
+				{% elif obj.estado  == 1 %}
+					<label class="btn btn-outline-primary btn-lg active">
+					<input type="radio" name="estado" id="estado" value = "1" checked> Ingresado</label>
+					<label class="btn btn-outline-warning btn-lg">
+					  <input type="radio" name="estado" id="estado" value = "2"> Validado
+					</label>
+					<label class="btn btn-outline-danger btn-lg">
+					  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
+					</label>
+				{% elif obj.estado  == 2 %}
+					<label class="btn btn-outline-primary btn-lg ">
+					<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+					<label class="btn btn-outline-warning btn-lg active" >
+					<input type="radio" name="estado" id="estado" value = "2" checked> Validado</label>
+					<label class="btn btn-outline-danger btn-lg">
+					  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
+					</label>
+				 {% elif obj.estado  == 3 %}
+					<label class="btn btn-outline-primary btn-lg ">
+					<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+					<label class="btn btn-outline-warning btn-lg" >
+					  <input type="radio" name="estado" id="estado" value = "2" > Validado
+					</label>
+					<label class="btn btn-outline-danger btn-lg active" >
+					  <input type="radio" name="estado" id="estado" value = "3" checked> Pendiente
+				    </label>
+				{% endif %}
+		</div>
+		</div>
+		</div>
+			<div class="card text-center">
+				 <div class="card-header">
+			    Opciones
+			  </div>
+			  <div class="card-body">
+		        <button class="btn btn-success btn-lg" type="submit"><span class="fa fa-save"> </span> Guardar </button>
+		        <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-danger btn-lg"><span class="fa fa-undo"> </span>  Cancelar</a>
+			  </div>
+			</div>
     </div>
 
 </form>

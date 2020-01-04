@@ -42,7 +42,7 @@ urlpatterns = [
 	url(r'^productos/sinregistro/listar/(?P<pk>\d+)/$',ListarProductosSinregistro.as_view(model=ProductoSINREGISTRO), name='listar_productos_sinregistro'),
 	#
     path('producto/new/sinregistro', ProductoNewSINREGISTRO.as_view(), name='producto_new_sinregistro'),
-    path('producto/edit/sinregistro/<int:pk>', ProductoEdit.as_view(), name='producto_edit_sinregistro'),
+    path('producto/edit/sinregistro/<int:pk>', ProductoEditSINREGISTRO.as_view(), name='producto_edit_sinregistro'),
 
 
     path('historial', historial_list, name='historial_list'),

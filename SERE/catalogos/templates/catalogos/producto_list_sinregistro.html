@@ -12,14 +12,14 @@
                  <a href="{% url 'catalogos:producto_new_sinregistro' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Nueva</a>
                  <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
                  <a href="{% url 'catalogos:producto_list' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
-                 
+
               </div>
               <br>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
   <table width="100%" class="=table tabñe-striped table-bordered table-hover" id="dataTables-example">
       <thead>
           <tr>
- 
+
   <th>Region</th>
   <th>Identidad</th>
   <th>Nombre</th>
@@ -31,7 +31,7 @@
       <tbody>
           {% for item in obj %}
   <tr>
-      
+
       <th>{{ item.subcategoria}}</th>
       <th>{{ item.identidadext}}</th>
       <th>{{ item.descripcion}}</th>
@@ -39,17 +39,17 @@
       <td>{{ item.modificado|date:'d/m/Y H:i' }}</td>
       <td>
         <!--<a href="{% url 'catalogos:historial_list' %}" class="btn btn-primary btn-circle"><span class="fa fa-search"></span></a>-->
-        <a href="{% url 'catalogos:producto_edit' item.id %}" class="btn btn-primary btn-circle"><span class="fa fa-edit"></span></a>
+        <a href="{% url 'catalogos:producto_edit_sinregistro' item.id %}" class="btn btn-primary btn-circle"><span class="fa fa-edit"></span></a>
         <a href="{% url 'catalogos:subcategoria_delete' item.id %}" class="btn btn-danger btn-circle"><span class="fa fa-trash"></span></a>
       </td>
   </tr>
   {% endfor %}
       </tbody>
   </table>
-  
+
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>

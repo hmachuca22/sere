@@ -63,10 +63,6 @@ class ProductoForm(forms.ModelForm):
 
 
 class ProductoFormINTERNOS(forms.ModelForm):
-    estado = forms.ChoiceField(label="",
-                                initial='',
-                                widget=forms.Select(),
-                                required=True)
 
     subcategoria = forms.ModelChoiceField(
         queryset = SubCategoria.objects.filter(activo=True).
@@ -87,10 +83,6 @@ class ProductoFormINTERNOS(forms.ModelForm):
 
 
 class ProductoFormSINREGISTRO(forms.ModelForm):
-    estado = forms.ChoiceField(label="",
-                                initial='',
-                                widget=forms.Select(),
-                                required=True)
     subcategoria = forms.ModelChoiceField(
         queryset = SubCategoria.objects.filter(activo=True).
         order_by('categoria__descripcion','descripcion'),
