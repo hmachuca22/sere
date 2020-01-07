@@ -47,4 +47,7 @@ urlpatterns = [
 
     path('historial', historial_list, name='historial_list'),
 
+	# para la modificación de los estados
+	url(r'catalago/modificar/estado', modificar_estadosinsternos.as_view(), name='modificar_internos'),
+
 ]

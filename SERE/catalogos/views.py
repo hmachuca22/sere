@@ -553,16 +553,17 @@ class ListarProductosInternos(ListView):
         #print('Listar productos')
     def get_queryset(self):
         p = ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
-        print('Los productos son:')
-        print(p)
-        return ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        return ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #context['productos'] = Producto.objects.get(subcategoria__categoria__pk=self.kwargs['pk'])
         context['Producto'] = ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        dep = ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
         valores = []
-        lista = ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        lista = ProductoINTERNO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
         for l in lista:
            print(l.pk)
            valores.append(l.pk)
@@ -607,3 +608,15 @@ class ListarProductosSinregistro(ListView):
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
+
+class modificar_estadosinsternos(View):
+    def post(self,request,pk=None):
+        departamento = request.POST['departamento_id']
+        elemento = request.POST['elemento']
+        print('el elemento es --> ', elemento)
+        print(elemento[-1:])
+        print(elemento[-3:])
+        messages.add_message(request,messages.SUCCESS,'Registro Guardado correctamente')
+        success_url = reverse('catalogos:listar_productos_internos',
+                            kwargs={'pk':departamento})
+        return HttpResponseRedirect(success_url)
