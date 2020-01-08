@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block contenido %}
 <!-- Earnings (Monthly) Card Example -->
 
@@ -23,6 +23,9 @@
   <th>Region</th>
   <th>Identidad</th>
   <th>Nombre</th>
+  <th>Ingresado</th>
+  <th>Validado</th>
+  <th>Pendiente</th>
   <th>Creado</th>
   <th>Modificado</th>
   <th>Acciones</th>
@@ -35,6 +38,45 @@
       <th>{{ item.subcategoria}}</th>
       <th>{{ item.identidadext}}</th>
       <th>{{ item.descripcion}}</th>
+	   <th>
+ 		{% if item.estado == 1 %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}1" checked >
+ 			<label class="custom-control-label" for="e{{item.id}}1" active></label>
+ 		</div>
+ 		{% else %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}1"  >
+ 			<label class="custom-control-label" for="e{{item.id}}1" active></label>
+ 		</div>
+ 		{% endif %}
+ 	  </th>
+ 	  <th>
+ 		{% if item.estado == 2 %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}2" checked >
+ 			<label class="custom-control-label" for="e{{item.id}}2" active></label>
+ 		</div>
+ 		{% else %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}2"  >
+ 			<label class="custom-control-label" for="e{{item.id}}2" active></label>
+ 		</div>
+ 		{% endif %}
+ 	  </th>
+ 	  <th>
+ 		{% if item.estado == 3 %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}3" checked >
+ 			<label class="custom-control-label" for="e{{item.id}}3" active></label>
+ 		</div>
+ 		{% else %}
+ 		<div class="custom-control custom-switch">
+ 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}3"  >
+ 			<label class="custom-control-label" for="e{{item.id}}3" active></label>
+ 		</div>
+ 		{% endif %}
+ 	  </th>
       <td>{{ item.creado|date:'d/m/Y H:i' }}</td>
       <td>{{ item.modificado|date:'d/m/Y H:i' }}</td>
       <td>
@@ -53,4 +95,64 @@
           </div>
         </div>
       </div>
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript">
+	function eliminar(datos){
+		$.ajax({
+            method: "POST",
+            url: "{% url 'catalogos:modificar_sinregistro' %}",
+            data: {
+                'elemento' : datos,
+                'departamento_id': '{{Departamento}}',
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                }
+            }).done(function (msg) {
+                location.reload();
+    		});
+	}
+	$(document).ready( function () {
+	//	console.log('{{Lista}}');
+	a = {{Lista}};
+	ar = [];
+	$.each(a, function( index, value ) {
+  		//console.log( index + ": " + value );
+        elemento = "#e" + value + 1;
+		elemento2 = "#e" + value + 2;
+		elemento3 = "#e" + value + 3;
+		ar.push(elemento);
+		ar.push(elemento2);
+		ar.push(elemento3);
+	});
+
+	//console.log(ar)
+   	$.each(ar, function( index, value ) {
+  			$(value).change(
+		      function(){
+		        if ($(this).is(':checked')) {
+					bootbox.confirm("¿Está seguro cambiar el estado?", function(result) {
+        					if(result){
+        						eliminar(value)
+        					}else{
+								alert('No quiere cambiar nada')
+							}
+							});
+		            //console.log('Presionado' +  value);// do what you want here
+		        }else{
+					//console.log('Sin presionar');
+				}
+		    });
+	});
+
+
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);});
+</script>
 {% endblock contenido%}

@@ -6,13 +6,15 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-				{% for message in messages %}
-					{% if message.tags == 'info' %}
-						<p><span class="text-primary">{{ message }}</span></p>
-					{% else %}
-						<p><span class="text-success">{{ message }}</span></p>
-					{% endif %}
-				{% endfor %}
+				<h1 class="page-header">
+	              <small class="text-danger text-center">
+	                {% if messages %}
+	                {% for message in messages %}
+	                {{ message|safe}}
+	                {% endfor %}
+	                {% endif %}
+	              </small>
+	            </h1>
               <h3 style="text-align: center;">DESPLAZAMIENTOS INTERNOS</h3>
               <div class="panel-heading">
                  <a href="{% url 'catalogos:producto_new_internos' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Nueva</a>
@@ -111,13 +113,12 @@
           </div>
         </div>
       </div>
- <script src="{% static 'base/js/jquery.min.js' %}"></script>
- <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <script type="text/javascript">
 	function eliminar(datos){
 		$.ajax({
@@ -154,7 +155,10 @@
 					bootbox.confirm("¿Está seguro cambiar el estado?", function(result) {
         					if(result){
         						eliminar(value)
-        					}});
+        					}else{
+								alert('No quiere cambiar nada')
+							}
+							});
 		            //console.log('Presionado' +  value);// do what you want here
 		        }else{
 					//console.log('Sin presionar');

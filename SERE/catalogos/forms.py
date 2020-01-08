@@ -43,11 +43,17 @@ class SubCategoriaForm(forms.ModelForm):
             })
         self.fields['categoria'].empty_label="Seleccione Departamento"
 
-class ProductoForm(forms.ModelForm):    
+class ProductoForm(forms.ModelForm):
     subcategoria = forms.ModelChoiceField(
         queryset = SubCategoria.objects.filter(activo=True).
         order_by('categoria__descripcion','descripcion'),
-        empty_label="Seleccione Departamento"
+        empty_label="Seleccione Departamento de destino"
+    )
+
+    origen = forms.ModelChoiceField(
+        queryset = SubCategoria.objects.filter(activo=True).
+        order_by('categoria__descripcion','descripcion'),
+        empty_label="Seleccione Departamento de origen"
     )
 
     class Meta:

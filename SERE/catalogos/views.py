@@ -524,18 +524,24 @@ class ListarProductos(ListView):
         #print('Listar productos')
     def get_queryset(self):
         p = Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
-        print('Los productos son:')
-        print(p)
-        return Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        return Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #context['productos'] = Producto.objects.get(subcategoria__categoria__pk=self.kwargs['pk'])
         context['Producto'] = Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        dep = Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = Producto.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
         #Declaramos el arreglo departamento
         departamentos = []
         #recorremos los departamentos a los cuales tiene acceso el usuario
-        context = super().get_context_data(**kwargs)
         for p in Perfil.objects.filter(user = self.request.user):
             departamentos.append(
                     p.departamento.id
@@ -547,7 +553,7 @@ class ListarProductos(ListView):
 
 #Productos Internos
 class ListarProductosInternos(ListView):
-    model = Producto
+    model = ProductoINTERNO
     template_name = "catalogos/producto_list_internos.html"
     context_object_name = "obj"
         #print('Listar productos')
@@ -582,24 +588,30 @@ class ListarProductosInternos(ListView):
 
 #Productos sin registro
 class ListarProductosSinregistro(ListView):
-    model = Producto
+    model = ProductoSINREGISTRO
     template_name = "catalogos/producto_list_sinregistro.html"
     context_object_name = "obj"
         #print('Listar productos')
     def get_queryset(self):
         p = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
-        print('Los productos son:')
-        print(p)
-        return ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        return ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #context['productos'] = Producto.objects.get(subcategoria__categoria__pk=self.kwargs['pk'])
         context['Producto'] = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk'])
+        dep = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
         #Declaramos el arreglo departamento
         departamentos = []
         #recorremos los departamentos a los cuales tiene acceso el usuario
-        context = super().get_context_data(**kwargs)
         for p in Perfil.objects.filter(user = self.request.user):
             departamentos.append(
                     p.departamento.id
@@ -608,15 +620,49 @@ class ListarProductosSinregistro(ListView):
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
-
+#Modificar estado de productos
+class modificar_estados(View):
+    def post(self,request,pk=None):
+        departamento = request.POST['departamento_id']
+        elemento = request.POST['elemento']
+        id = elemento[2:-1]
+        estado = elemento[-1:]
+        producto = Producto.objects.filter(pk = id)
+        for p in producto:
+          p.estado = estado
+          p.save()
+        messages.add_message(request,messages.SUCCESS,'Registro actualizado correctamente')
+        success_url = reverse('catalogos:listar_productos',
+                            kwargs={'pk':departamento})
+        return HttpResponseRedirect(success_url)
+#Modificar estados de productos internos
 class modificar_estadosinsternos(View):
     def post(self,request,pk=None):
         departamento = request.POST['departamento_id']
         elemento = request.POST['elemento']
-        print('el elemento es --> ', elemento)
-        print(elemento[-1:])
-        print(elemento[-3:])
-        messages.add_message(request,messages.SUCCESS,'Registro Guardado correctamente')
+        id = elemento[2:-1]
+        estado = elemento[-1:]
+        producto = ProductoINTERNO.objects.filter(pk = id)
+        for p in producto:
+          p.estado = estado
+          p.save()
+        messages.add_message(request,messages.SUCCESS,'Registro actualizado correctamente')
+        success_url = reverse('catalogos:listar_productos_internos',
+                            kwargs={'pk':departamento})
+        return HttpResponseRedirect(success_url)
+
+#Modificar estados de productos sin registro
+class modificar_estadosinregistro(View):
+    def post(self,request,pk=None):
+        departamento = request.POST['departamento_id']
+        elemento = request.POST['elemento']
+        id = elemento[2:-1]
+        estado = elemento[-1:]
+        producto = ProductoSINREGISTRO.objects.filter(pk = id)
+        for p in producto:
+          p.estado = estado
+          p.save()
+        messages.add_message(request,messages.SUCCESS,'Registro actualizado correctamente')
         success_url = reverse('catalogos:listar_productos_internos',
                             kwargs={'pk':departamento})
         return HttpResponseRedirect(success_url)
