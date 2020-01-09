@@ -20,6 +20,7 @@ urlpatterns = [
     path('categoria/dprint/<int:pk>', categoria_print, name='categoria_print_one'),
 	#Lista usuarios
     url(r'^productos/listar/(?P<pk>\d+)/$',ListarProductos.as_view(model=Producto), name='listar_productos'),
+    url(r'^productos/listar/all',ListarProductostodos.as_view(model=Producto), name='listar_productostodos'),
 	#
     path('subcategorias', SubCategoriaView.as_view(), name='subcategoria_list'),
     path('subcategorias/new', SubCategoriaNew.as_view(), name='subcategoria_new'),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('productos/internos/', ProductoViewINTERNOS.as_view(), name='producto_list_internos'),
 	#Lista usuarios
 	url(r'^productos/internos/listar/(?P<pk>\d+)/$',ListarProductosInternos.as_view(model=ProductoINTERNO), name='listar_productos_internos'),
+    url(r'^productos/internos/listar/all',ListarProductostodosinternos.as_view(model=Producto), name='listar_productostodosinternos'),
 	#
     path('producto/new/internos', ProductoNewINTERNOS.as_view(), name='producto_new_internos'),
     path('producto/edit/internos/<int:pk>', ProductoEditINTERNOS.as_view(), name='producto_edit_internos'),
