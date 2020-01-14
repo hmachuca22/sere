@@ -10,11 +10,10 @@
         <br>
         <div class="panel-body">
             {% csrf_token %}
-
-            <div class="card text-center">
+    	<div class="card text-center">
                     <div class="card-header bg-secondary">
                         <h5><p  class="text-light">
-                            <strong>Información de Origen  del Estudiante 
+                            <strong>Información de Origen  del Estudiante
                                 </strong>
                             </p>
                         </h5>
@@ -26,16 +25,15 @@
                                     <label class="control-label" for="inputSuccess">Origen</label>
                                     {{form.origen}}
                                     </strong>
-                                    </div>                                    
+                                    </div>
                             </div>
                     </div>
             </div>
             <br>
-
-            <div class="card text-center">
+        <div class="card text-center">
                     <div class="card-header bg-secondary">
                         <h5><p  class="text-light">
-                            <strong>Información del Destino del Estudiante 
+                            <strong>Información del Destino del Estudiante
                                 </strong>
                             </p>
                         </h5>
@@ -66,53 +64,52 @@
                                     <div class="col-2">
                                         <strong>
                                         <label class="control-label" for="inputSuccess">Grado</label></strong>
-                                            {{form.grado}}                                        
+                                            {{form.grado}}
                                     </div>
                             </div>
                     </div>
             </div>
-            <br>             
-            
-            <div class="card text-center">
+            <br>
+    	<div class="card text-center">
                     <div class="card-header bg-secondary">
                             <h5><p  class="text-light">
-                                <strong>Información Personal  del Estudiante 
+                                <strong>Información Personal  del Estudiante
                                     </strong>
                                 </p>
                             </h5>
                         </div>
-                    <div class="card-body">
+        <div class="card-body">
                             <div class="form-row">
                                     <div class="col-6">
                                     <strong><label class="control-label" for="inputWarning">Identidad SACE</label>
                                     </strong>
                                     {{form.identidadext}}
-                                    </div> 
+                                    </div>
                             </div>
                             <div class="form-row">
                                     <div class="col-7">
                                     <strong>
                                     <label class="control-label" for="inputWarning">Nombre</label></strong>
-                                    {{form.descripcion}}                        
-                                    </div>  
+                                    {{form.descripcion}}
+                                    </div>
                                     <div class="col-2">
                                     <strong>
                                     <label class="control-label" for="inputWarning">Genero</label></strong>
                                     {{form.genero}}
-                                    </div>  
+                                    </div>
                                     <div class="col-2">
                                     <strong>
                                     <label class="control-label" for="inputWarning">Edad</label></strong>
                                     {{form.edad}}
-                                    </div>  
+                                    </div>
                                 </div>
                     </div>
-            </div>  
-            <br>               
+            </div>
+            <br>
             <div class="card text-center">
                     <div class="card-header bg-secondary">
                             <h5><p  class="text-light">
-                                <strong>Información Personal  del Estudiante 
+                                <strong>Información Personal  del Estudiante
                                     </strong>
                                 </p>
                             </h5>
@@ -123,14 +120,14 @@
                                     <strong><label class="control-label" for="inputWarning">Identidad Encargado</label>
                                     </strong>
                                     {{form.idencargado}}
-                                    </div> 
+                                    </div>
                             </div>
                             <div class="form-row">
                                     <div class="col-7">
                                     <strong>
                                     <label class="control-label" for="inputWarning">Nombre Encargado</label></strong>
-                                    {{form.nombreencargado}}                        
-                                    </div>  
+                                    {{form.nombreencargado}}
+                                    </div>
                                     <div class="col-2">
                                     <strong>
                                     <label class="control-label" for="inputWarning">Telefono</label></strong>
@@ -142,12 +139,16 @@
                                     <strong>
                                     <label class="control-label" for="inputWarning">Observaciones</label></strong>
                                     {{form.observaciones}}
-                                    </div>                              
+                                    </div>
                             </div>
-            </div>             
+            </div>
         </div>
+
+
+
+
         <br>
-        <div class="card text-center">
+    	<div class="card text-center">
 			<div class="card-header">
 		    	Estado del Proceso
 		  	</div>
@@ -189,9 +190,9 @@
 					  <input type="radio" name="estado" id="estado" value = "3" checked> Pendiente
 				    </label>
 				{% endif %}
+			</div>
 		</div>
-		</div>
-		</div>
+	</div>
 			<div class="card text-center">
 				<div class="card-header">
 			        Opciones

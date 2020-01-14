@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block contenido %}
 <!-- Earnings (Monthly) Card Example -->
 
@@ -44,7 +44,7 @@
   {% endfor %}
       </tbody>
   </table>
-  
+
               </div>
             </div>
             <div class="col-auto">
@@ -53,4 +53,16 @@
           </div>
         </div>
       </div>
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);});
+
+</script>
 {% endblock contenido%}

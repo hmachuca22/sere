@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block contenido %}
+<!-- Earnings (Monthly) Card Example -->
+
+<div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <h2 style="text-align: center;">Bienvenido a las estadisticas del sistema</h2>
+              <div class="panel-heading">
+                 <a href="{% url 'generales:home_user' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
+                 <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
+              </div>
+              <br>
+              </div>
+            </div>
+          </div>
+<div class="row">
+            <div class="panel-body">
+                <div id="chart_matricula" class="col-md-12" style="max-width:1200px; min-height: 500px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+$('#chart_matricula').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: 'Matrícula Total Histórica'
+	},
+	subtitle: {
+		text: '(Total de matrícula por Campus y Período)'
+	},
+	xAxis: {
+		categories: [
+				{% for p in productos %}
+					"{{p.subcategoria__descripcion}}",
+				{% endfor %}
+			]
+	},
+	yAxis: {
+		min: 0,
+		title: {
+			text: 'Totales'
+		},
+		stackLabels: {
+			enabled: true,
+			style: {
+				fontWeight: 'bold',
+				color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+			}
+		}
+	},
+	legend: {
+		align: 'right',
+		verticalAlign: 'middle',
+		layout:'vertical',
+	},
+	// tooltip: {
+	//     formatter: function () {
+	//         return '<b>' + this.x + '</b><br/>' +
+	//             this.series.name + ': ' + this.y + '<br/>' +
+	//             'Total: ' + this.point.stackTotal;
+	//     }
+	// },
+	series: [
+		{% for p in producto %}
+			name:'{{p.subcategoria__descripcion}}',
+			data:{{p.count}}
+		{% endfor %}
+	]
+});
+	$(document).ready( function () {
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);
+});
+
+</script>
+{% endblock contenido%}

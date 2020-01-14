@@ -249,7 +249,7 @@ class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.
         else:
             messages.add_message(request,messages.ERROR,'Error al guardar el registro')
             return render(request, self.template_name, {'form': form})
-    
+
     def get_context_data(self,**kwargs):
         #Declaramos el arreglo departamento
         departamentos = []
@@ -303,7 +303,7 @@ class ProductoNewINTERNOS(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
-        return context     
+        return context
 
 
 class ProductoNewSINREGISTRO(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
@@ -578,7 +578,7 @@ class ListarProductos(ListView):
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
-    
+
 #Listar todos los productos
 class ListarProductostodos(ListView):
     model = Producto
@@ -626,7 +626,7 @@ class ListarProductostodosinternos(ListView):
         return ProductoINTERNO.objects.all().order_by('-pk')
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)       
+        context = super().get_context_data(**kwargs)
         context['Producto'] = ProductoINTERNO.objects.all()
         dep = ProductoINTERNO.objects.all().values('subcategoria__categoria__pk').distinct()
         valores = []
@@ -763,3 +763,66 @@ class modificar_estadosinregistro(View):
         success_url = reverse('catalogos:listar_productos_internos',
                             kwargs={'pk':departamento})
         return HttpResponseRedirect(success_url)
+
+#Lista para historial de SACE
+#Productos Externos
+class Listarhistorial(ListView):
+    model = DETALLESACE
+    template_name = "catalogos/historial_list.html"
+    context_object_name = "obj"
+        #print('Listar productos')
+    def get_queryset(self):
+        p = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])
+        return DETALLESACE.objects.filter(identidadsace=self.kwargs['pk']).order_by('-pk')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['historial'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])
+        context['alumno'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])[:1]
+        dep = Producto.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = Producto.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
+        departamentos = []
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
+
+#Todos los regitros de SACE por departamento
+class Listarhistorialtodos(ListView):
+    model = DETALLESACE
+    template_name = "catalogos/historial_listall.html"
+    context_object_name = "obj"
+        #print('Listar productos')
+    def get_queryset(self):
+        p = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        return DETALLESACE.objects.filter(departamento_id=self.kwargs['pk']).order_by('-pk')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        context['dep'] = self.kwargs['pk']
+        dep = Producto.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = Producto.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
+        departamentos = []
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context

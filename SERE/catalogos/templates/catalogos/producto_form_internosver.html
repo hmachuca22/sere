@@ -3,10 +3,11 @@
 <form method="POST">
     <div class="panel panel-default">
         <h3 style="text-align: center;">Editar/Crear Registro Desplazamiento Interno</h3>
-              
-    
         <div class="panel-body">
             {% csrf_token %}
+
+
+            <br>
             <div class="form-group as success">
                 <label class="control-label" for="inputSuccess">Region</label>
                 {{form.subcategoria}}
@@ -80,7 +81,7 @@
                 {{form.activo}}
           </div>
         </div>
-        
+
         <button class="btn btn-danger" type="submit"><span class="fa fa-save">Guardar</span></button>
         <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-success"><span class="fa fa-undo">Cancelar</span></a>
     </div>

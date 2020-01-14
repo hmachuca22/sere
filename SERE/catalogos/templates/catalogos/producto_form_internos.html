@@ -6,74 +6,166 @@
         <h3 style="text-align: center;">Editar/Crear Registro Desplazamiento Interno</h3>
         <div class="panel-body">
             {% csrf_token %}
-            <div class="form-group as success">
-                <label class="control-label" for="inputSuccess">Region</label>
-                {{form.subcategoria}}
+					<div class="card text-center">
+		                    <div class="card-header bg-secondary">
+		                        <h5><p  class="text-light">
+		                            <strong>Información de Origen  del Estudiante
+		                                </strong>
+		                            </p>
+		                        </h5>
+		                    </div>
+		                    <div class="card-body">
+		                            <div class="form-row" >
+		                                    <div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Origen</label>
+		                                    {{form.subcategoria}}
+		                                    </strong>
+		                                    </div>
+		                            </div>
+		                    </div>
+		            </div>
+		<br>
+					<div class="card text-center">
+		                    <div class="card-header bg-secondary">
+		                        <h5><p  class="text-light">
+		                            <strong>Información del Destino del Estudiante
+		                                </strong>
+		                            </p>
+		                        </h5>
+		                    </div>
+		                    <div class="card-body">
+		                            <div class="form-row" >
+		                                    <div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Region</label>
+		                                    {{form.destino}}
+		                                    </strong>
+		                                    </div>
+		                                    <div class="col-6">
+		                                    <strong>
+		                                        <label class="control-label" for="inputSuccess">Centro Educativo</label>
+		                                            {{form.centroeducativo}}
+		                                        </strong>
+		                                    </div>
+		                            </div>
+
+		                            <div class="form-row" >
+		                                    <div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Codigo Centro Educativo</label>
+		                                    </strong>
+		                                    {{form.codigoce}}
+		                                    </div>
+											<div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Nombre Centro Educativo</label>
+		                                    </strong>
+		                                    {{form.centroeducativo}}
+		                                    </div>
+		                            </div>
+		                    </div>
+		            </div>
+		            <br>
+					<div class="card text-center">
+		                    <div class="card-header bg-secondary">
+		                        <h5><p  class="text-light">
+		                            <strong>Información Personal del Estudiante
+		                                </strong>
+		                            </p>
+		                        </h5>
+		                    </div>
+		                    <div class="card-body">
+		                            <div class="form-row" >
+		                                    <div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Identidad</label>
+		                                    {{form.identidadext}}
+		                                    </strong>
+		                                    </div>
+		                                    <div class="col-6">
+		                                    <strong>
+		                                        <label class="control-label" for="inputSuccess">Nombre de alumno</label>
+		                                            {{form.descripcion}}
+		                                        </strong>
+		                                    </div>
+		                            </div>
+
+		                            <div class="form-row" >
+		                                    <div class="col-6">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Nivel Educativo</label>
+		                                    </strong>
+		                                    {{form.niveleducativo}}
+		                                    </div>
+											<div class="col-2">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Grado</label>
+		                                    </strong>
+		                                    {{form.grado}}
+		                                    </div>
+		                                    <div class="col-2">
+		                                        <strong>
+		                                        <label class="control-label" for="inputSuccess">Edad</label></strong>
+		                                            {{form.edad}}
+		                                    </div>
+											<div class="col-2">
+		                                        <strong>
+		                                        <label class="control-label" for="inputSuccess">Genero</label></strong>
+		                                            {{form.genero}}
+		                                    </div>
+											<div class="col-9">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Direccion</label>
+		                                    </strong>
+		                                    {{form.direccion}}
+		                                    </div>
+		                            </div>
+		                    </div>
+		            </div>
+
+					<div class="card text-center">
+		                    <div class="card-header bg-secondary">
+		                        <h5><p  class="text-light">
+		                            <strong>Otros datos
+		                                </strong>
+		                            </p>
+		                        </h5>
+		                    </div>
+		                    <div class="card-body">
+		                            <div class="form-row" >
+		                                    <div class="col-4">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">NNA</label>
+		                                    </strong>
+		                                    {{form.NNA}}
+		                                    </div>
+											<div class="col-4">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">PMTE</label>
+		                                    </strong>
+		                                    {{form.PMTE}}
+		                                    </div>
+		                                    <div class="col-4">
+		                                        <strong>
+		                                        <label class="control-label" for="inputSuccess">CS</label></strong>
+		                                            {{form.CS}}
+		                                    </div>
+											<div class="col-4">
+		                                        <strong>
+		                                        <label class="control-label" for="inputSuccess">Total</label></strong>
+		                                            {{form.TOTAL}}
+		                                    </div>
+											<div class="col">
+		                                    <strong>
+		                                    <label class="control-label" for="inputSuccess">Observaciones</label>
+		                                    </strong>
+		                                    {{form.observaciones}}
+		                                    </div>
+		                            </div>
+		                    </div>
+		            </div>
             </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Identidad</label>
-                {{form.identidadext}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Codigo Centro</label>
-                {{form.codigoce}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Centro Educativo</label>
-                {{form.centroeducativo}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Nombre Alumno</label>
-                {{form.descripcion}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Nivel Educativo</label>
-                {{form.niveleducativo}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Grado</label>
-                {{form.grado}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Edad</label>
-                {{form.edad}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Genero</label>
-                {{form.genero}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Direccion</label>
-                {{form.direccion}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">NNA</label>
-                {{form.NNA}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">PMTE</label>
-                {{form.PMTE}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">CS</label>
-                {{form.CS}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">TOTAL</label>
-                {{form.TOTAL}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Destino</label>
-                {{form.destino}}
-            </div>
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Observaciones</label>
-                {{form.observaciones}}
-            </div>
-            <div class="form-group has-error" hidden="hidden">
-                <label class="control-label" for="inputError">Estado</label>
-                {{form.activo}}
-          </div>
         </div>
 <div class="card text-center">
 	<div class="card-header">
@@ -129,7 +221,6 @@
         <button class="btn btn-success btn-lg" type="submit"><span class="fa fa-save"> </span> Guardar </button>
         <a href="{% url 'catalogos:producto_list_internos' %}" class="btn btn-danger btn-lg"><span class="fa fa-undo"> </span>  Cancelar</a>
 	  </div>
-	</div>
     </div>
 
 </form>

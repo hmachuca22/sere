@@ -24,8 +24,13 @@
 
 
   <!-- Datatable-->
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.css"/>
-
+ <link rel="stylesheet" type="text/css" href="{% static 'base/css/datatables.min.css' %}">
+<style>
+.dataTables_wrapper {
+    font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";;
+    font-size: 14px;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -85,8 +90,8 @@
 				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Registros Internos</a>
 				<a class="collapse-item" href="{% url 'catalogos:listar_productos_sinregistro' pk=d.id %}"> Productos sin registro</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
-                <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
-                <a class="collapse-item" href="#"> Estadisticas</a>
+                <a class="collapse-item" href="{% url 'catalogos:listar_sace_todos' pk=d.id %}"> SACE</a>
+                <a class="collapse-item"  href="{% url 'estadistica:estadisticas_departamentos' pk=d.id %}"> Estadisticas</a>
             </div>
           </div>
     </li>

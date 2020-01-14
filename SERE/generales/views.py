@@ -55,7 +55,7 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
         productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
                       'subcategoria__categoria__descripcion'
                    ).annotate(Count('pk'))
-        print(productos)
+        
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
         context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)

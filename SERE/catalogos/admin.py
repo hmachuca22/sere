@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Perfil,Producto, ProductoINTERNO, ProductoSINREGISTRO
+from .models import Perfil,Producto, ProductoINTERNO, ProductoSINREGISTRO, DETALLESACE,Categoria
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 
@@ -16,6 +16,8 @@ admin.site.register(User,CustomAdmin)
 admin.site.register(Producto)
 admin.site.register(ProductoINTERNO)
 admin.site.register(ProductoSINREGISTRO)
+admin.site.register(DETALLESACE)
+admin.site.register(Categoria)
 # Register your models here.
 from catalogos.models import Perfil
 class PerfilAdmin(admin.ModelAdmin):

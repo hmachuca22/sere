@@ -20,5 +20,6 @@ urlpatterns = [
     path('',include(('generales.urls','generales'), namespace='generales')),
     path('catalogos/',include(('catalogos.urls','catalogos'), namespace='catalogos')),
     path('atlantida/',include(('atlantida.urls','atlantida'), namespace='atlantida')),
+    path('estadistica/',include(('estadistica.urls','estadistica'), namespace='estadistica')),
     path('admin/', admin.site.urls),
 ]

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'generales',
     'catalogos',
-    'atlantida' #,
+    'estadistica', #,
     #'django_extensions'
 ]
 

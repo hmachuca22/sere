@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static%}
 {% block contenido %}
 <!-- Earnings (Monthly) Card Example -->
 
@@ -9,48 +9,73 @@
             <div class="col mr-2">
               <h2 style="text-align: center;">HISTORIAL EN SACE</h2>
               <div class="panel-heading">
-                 <a href="{% url 'catalogos:producto_list' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
+                 <a href="{% url 'generales:home_user' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
                  <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
               </div>
               <br>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-  <table width="100%" class="=table tabñe-striped table-bordered table-hover" id="dataTables-example">
-      <thead>
-          <tr>
-            <th>Periodo</th>
-  <th>ID/Nombre</th>
-  <th>Departamento</th>
-  <th>Municipio</th>
-  <th>Grado</th>
-  <th>Cod Centro</th>
-  <th>Nombre Centro</th>
-
-          </tr>
-      </thead>
-      <tbody>
+		<div class="card mb-3" style="max-width: 80%;">
+  			<div class="row no-gutters">
+    			<div class="col-md-4">
+      			<img src="https://st2.depositphotos.com/1007566/12011/v/950/depositphotos_120118192-stock-illustration-student-boy-school-icon.jpg" class="card-img" alt="...">
+    			</div>
+    		<div class="col-md-8">
+      			<div class="card-body">
+        		<ul class="list-group">
+					{% for a in alumno %}
+					<h5 class="card-title">Información General del Alumno
+					<span class="badge badge-primary"> {{a.identidadsace.genero}} </span>
+					</h5>
+  					<li class="list-group-item"><strong>Nombre :</strong> {{a.identidadsace}}</li>
+  					<li class="list-group-item"><strong>Departamento :</strong> {{a.departamento}}</li>
+					<li class="list-group-item"><strong>Municipio :</strong> {{a.municipio}}</li>
+					<li class="list-group-item"><strong>Aldea :</strong> {{a.aldea}}</li>
+					<li class="list-group-item"><strong>Caserio :</strong> {{a.caserio}}</li>
+					<li class="list-group-item"><strong>Telefono :</strong> {{a.telefono}}</li>
+					{% endfor %}
+				</ul>
+        		<p class="card-text"><small class="text-muted">Información obtenida de su ultimo registro en SACE</small></p>
+      			</div>
+    		</div>
+  		</div>
+		</div>
       {% if historial %}
          {% for historial in historial %}
-  <tr>
-    <th>{{ historial.periodo }}</th>
-      <td>{{ historial.identidadsace }}</td>
-      <th>{{ historial.departamento }}</th>
-      <th>{{ historial.municipio }}</th>
-      <th>{{ historial.grado }}</th>
-      <th>{{ historial.codcentro }}</th>
-      <th>{{ historial.nombrecentro }}</th>
-  </tr>
+		<div class="card mb-3" style="max-width: 100%;">
+  			<div class="row no-gutters">
+    		<div class="col-md-8">
+      			<div class="card-body">
+        		<h5 class="card-title"><strong>Periodo:</strong> <span class="badge badge-primary"> {{historial.periodo}} </span>  <strong> Centro Educativo:</strong> <span class="badge badge-success">{{historial.codcentro}} - {{historial.nombrecentro}} </span> </h5>
+        		<ul class="list-group">
+  					<li class="list-group-item"><strong>Grado :</strong> {{historial.grado}}</li>
+				</ul>
+        		<p class="card-text"><small class="text-muted">Información obtenida de su ultimo registro en SACE</small></p>
+      			</div>
+    		</div>
+  		</div>
+		</div>
         {% endfor %}
-
   {% else %}
   <h1>No hay Historial</h1>
   {% endif %}
-      </tbody>
-  </table>
-  
+
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
+
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);});
+
+</script>
 {% endblock contenido%}

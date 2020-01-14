@@ -9,7 +9,7 @@ class SACE(models.Model):
     descripcion=models.CharField(max_length=100)
 
     def __str__(self):
-        return '{} : {}'.format(self.identidadsace,self.descripcion)
+        return '{} | {}'.format(self.identidadsace,self.descripcion)
 
     class Meta:
         verbose_name_plural="Detalles de Alumno"
@@ -117,6 +117,7 @@ class DETALLESACE(models.Model):
     identidadsace=models.ForeignKey(SACE,on_delete=models.CASCADE)
     nombresace=models.CharField(max_length=100)
     periodo=models.CharField(max_length=4)
+    departamento_id=models.IntegerField(max_length=2)
     departamento=models.CharField(max_length=50)
     municipio=models.CharField(max_length=50)
     aldea=models.CharField(max_length=50)
