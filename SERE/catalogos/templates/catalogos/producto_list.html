@@ -24,7 +24,9 @@
   <th>Region</th>
   <th>Descripcion</th>
    <th>Ingresado</th>
-   <th>Validado</th>
+	 <th>NNA-NCR</th>
+	 <th>NNA-OCR</th>
+	 <th>NNA-SCR</th>
    <th>Pendiente</th>
   <th>Creado</th>
   <th>Modificado</th>
@@ -74,7 +76,33 @@
 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}3"  >
 			<label class="custom-control-label" for="e{{item.id}}3" active></label>
 		</div>
+		</th>
 		{% endif %}
+		<th>
+		{% if item.estado == 4 %}
+		<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="e{{item.id}}4" checked >
+			<label class="custom-control-label" for="e{{item.id}}4" active></label>
+		</div>
+		{% else %}
+		<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="e{{item.id}}4"  >
+			<label class="custom-control-label" for="e{{item.id}}4" active></label>
+		</div>
+		{% endif %}
+		</th>
+		<th>
+		{% if item.estado == 5 %}
+		<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="e{{item.id}}5" checked >
+			<label class="custom-control-label" for="e{{item.id}}5" active></label>
+		</div>
+		{% else %}
+		<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="e{{item.id}}5"  >
+			<label class="custom-control-label" for="e{{item.id}}5" active></label>
+		</div>
+		{% endif %}		
 	  </th>
       <td>{{ item.creado|date:'d/m/Y H:i' }}</td>
       <td>{{ item.modificado|date:'d/m/Y H:i' }}</td>

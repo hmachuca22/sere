@@ -158,37 +158,92 @@
 					<label class="btn btn-outline-primary btn-lg active">
 					<input type="radio" name="estado" id="estado"  value = "1" checked> Ingresado</label>
 					<label class="btn btn-outline-warning btn-lg">
-				  	<input type="radio" name="estado" id="estado" value = "2"> Validado
+				  	<input type="radio" name="estado" id="estado" value = "2"> NNA-NCR
 					</label>
 					<label class="btn btn-outline-danger btn-lg">
-				  	<input type="radio" name="estado" id="estado" value = "3"> Pendiente
-					</label>
+				  	<input type="radio" name="estado" id="estado" value = "3"> NNA-OCR
+                    </label>
+                    <label class="btn btn-outline-success btn-lg">
+                    <input type="radio" name="estado" id="estado" value = "4"> NNA-SCR                    
+                    </label>
+                    <label class="btn btn-outline-info btn-lg">
+                    <input type="radio" name="estado" id="estado" value = "5"> Pendiente
+                    </label>
 				{% elif obj.estado  == 1 %}
 					<label class="btn btn-outline-primary btn-lg active">
 					<input type="radio" name="estado" id="estado" value = "1" checked> Ingresado</label>
 					<label class="btn btn-outline-warning btn-lg">
-					  <input type="radio" name="estado" id="estado" value = "2"> Validado
-					</label>
-					<label class="btn btn-outline-danger btn-lg">
-					  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
-					</label>
+                        <input type="radio" name="estado" id="estado" value = "2"> NNA-NCR
+                      </label>
+                      <label class="btn btn-outline-danger btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "3"> NNA-OCR
+                      </label>
+                      <label class="btn btn-outline-success btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "4"> NNA-SCR                    
+                      </label>
+                      <label class="btn btn-outline-info btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "5"> Pendiente
+                      </label>
 				{% elif obj.estado  == 2 %}
 					<label class="btn btn-outline-primary btn-lg ">
 					<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
-					<label class="btn btn-outline-warning btn-lg active" >
-					<input type="radio" name="estado" id="estado" value = "2" checked> Validado</label>
-					<label class="btn btn-outline-danger btn-lg">
-					  <input type="radio" name="estado" id="estado" value = "3"> Pendiente
-					</label>
+					<label class="btn btn-outline-warning btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "2" checked> NNA-NCR
+                      </label>
+                      <label class="btn btn-outline-danger btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "3"> NNA-OCR
+                      </label>
+                      <label class="btn btn-outline-success btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "4"> NNA-SCR                    
+                      </label>
+                      <label class="btn btn-outline-info btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "5"> Pendiente
+                      </label>
 				 {% elif obj.estado  == 3 %}
 					<label class="btn btn-outline-primary btn-lg ">
 					<input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
-					<label class="btn btn-outline-warning btn-lg" >
-					  <input type="radio" name="estado" id="estado" value = "2" > Validado
-					</label>
-					<label class="btn btn-outline-danger btn-lg active" >
-					  <input type="radio" name="estado" id="estado" value = "3" checked> Pendiente
-				    </label>
+					<label class="btn btn-outline-warning btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "2"> NNA-NCR
+                      </label>
+                      <label class="btn btn-outline-danger btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "3" checked> NNA-OCR
+                      </label>
+                      <label class="btn btn-outline-success btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "4"> NNA-SCR                    
+                      </label>
+                      <label class="btn btn-outline-info btn-lg">
+                      <input type="radio" name="estado" id="estado" value = "5"> Pendiente
+                      </label>
+                      {% elif obj.estado  == 4 %}
+                      <label class="btn btn-outline-primary btn-lg ">
+                      <input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+                      <label class="btn btn-outline-warning btn-lg">
+                          <input type="radio" name="estado" id="estado" value = "2"> NNA-NCR
+                        </label>
+                        <label class="btn btn-outline-danger btn-lg">
+                          <input type="radio" name="estado" id="estado" value = "3" > NNA-OCR
+                        </label>
+                        <label class="btn btn-outline-success btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "4" checked> NNA-SCR                    
+                        </label>
+                        <label class="btn btn-outline-info btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "5"> Pendiente
+                        </label>
+                        {% elif obj.estado  == 5 %}
+                      <label class="btn btn-outline-primary btn-lg ">
+                      <input type="radio" name="estado" id="estado" value = "1" > Ingresado</label>
+                      <label class="btn btn-outline-warning btn-lg">
+                          <input type="radio" name="estado" id="estado" value = "2"> NNA-NCR
+                        </label>
+                        <label class="btn btn-outline-danger btn-lg">
+                          <input type="radio" name="estado" id="estado" value = "3" > NNA-OCR
+                        </label>
+                        <label class="btn btn-outline-success btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "4" > NNA-SCR                    
+                        </label>
+                        <label class="btn btn-outline-info btn-lg">
+                        <input type="radio" name="estado" id="estado" value = "5" checked> Pendiente
+                        </label>
 				{% endif %}
 			</div>
 		</div>

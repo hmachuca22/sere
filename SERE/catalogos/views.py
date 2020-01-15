@@ -32,7 +32,10 @@ class CategoriaView(LoginRequiredMixin,generic.ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 
@@ -69,7 +72,10 @@ class CategoriaEdit(LoginRequiredMixin,SinPrivilegios,generic.UpdateView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 class CategoriaDel(LoginRequiredMixin,SinPrivilegios,generic.DeleteView):
@@ -97,7 +103,10 @@ class SubCategoriaView(LoginRequiredMixin,generic.ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 class SubCategoriaNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
@@ -133,7 +142,10 @@ class SubCategoriaEdit(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,gen
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 class SubCategoriaDel(LoginRequiredMixin,SinPrivilegios,generic.DeleteView):
@@ -174,7 +186,10 @@ class ProductoView(LoginRequiredMixin,generic.ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)        
         return context
 
 class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
@@ -193,8 +208,11 @@ class ProductoViewINTERNOS(LoginRequiredMixin,generic.ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
-        return context
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context        
 
     def get_queryset(self):
         ProductoINTERNO
@@ -218,7 +236,10 @@ class ProductoViewSINREGISTRO(LoginRequiredMixin,generic.ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
@@ -261,8 +282,11 @@ class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
-        return context
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context        
 
 class ProductoNewINTERNOS(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
     permission_required = "catalogos.add_producto"
@@ -302,8 +326,11 @@ class ProductoNewINTERNOS(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
-        return context
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context        
 
 
 class ProductoNewSINREGISTRO(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.CreateView):
@@ -359,7 +386,10 @@ class ProductoEdit(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
     def post(self, request,  pk=None, *args, **kwargs):
@@ -407,7 +437,10 @@ class ProductoEditINTERNOS(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)        
         return context
 
     def post(self, request,  pk=None, *args, **kwargs):
@@ -457,7 +490,11 @@ class ProductoEditSINREGISTRO(SuccessMessageMixin,LoginRequiredMixin,SinPrivileg
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context
         return context
 
     def post(self, request,  pk=None, *args, **kwargs):
@@ -539,7 +576,10 @@ def historial_list(request):
         )
         #filtramos el contexto con el arreglo anterior
     contexto['Cantidad']= len(departamentos)
-    contexto['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+    if  self.request.user.is_superuser:
+        context['Departamentos'] = Categoria.objects.all()
+    else:
+        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
     return render(request,'catalogos/historial_list.html', contexto)
 
 
@@ -576,7 +616,10 @@ class ListarProductos(ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 #Listar todos los productos
@@ -611,7 +654,10 @@ class ListarProductostodos(ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 
@@ -646,7 +692,10 @@ class ListarProductostodosinternos(ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 #Productos Internos
 class ListarProductosInternos(ListView):
@@ -680,7 +729,10 @@ class ListarProductosInternos(ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 #Productos sin registro
@@ -715,7 +767,10 @@ class ListarProductosSinregistro(ListView):
             )
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 #Modificar estado de productos
 class modificar_estados(View):
@@ -793,7 +848,10 @@ class Listarhistorial(ListView):
             departamentos.append(
                     p.departamento.id
             )
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
 
 #Todos los regitros de SACE por departamento
@@ -803,12 +861,15 @@ class Listarhistorialtodos(ListView):
     context_object_name = "obj"
         #print('Listar productos')
     def get_queryset(self):
-        p = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
-        return DETALLESACE.objects.filter(departamento_id=self.kwargs['pk']).order_by('-pk')
+        p = DETALLESACE.objects.all()
+        return p
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        if  self.request.user.is_superuser:
+            context['historial'] = DETALLESACE.objects.all()
+        else:
+            context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
         context['dep'] = self.kwargs['pk']
         dep = Producto.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
         valores = []
@@ -824,5 +885,8 @@ class Listarhistorialtodos(ListView):
             departamentos.append(
                     p.departamento.id
             )
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context

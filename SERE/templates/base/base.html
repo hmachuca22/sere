@@ -70,12 +70,8 @@
         <strong>{{d_.departamento__descripcion}}</strong>
     {% endfor %}
     {%if not Departamentos %}
-        <strong> Vacio</strong>
+    <strong>No tiene acceso a ningún departamento, favor comuniquese con el administrador del sitio</strong>
     {%endif%}
-    {% if Cantidad == 0 %}
-        <strong>No tiene acceso a ningún departamento, favor comuniquese con el administrador del sitio</strong>
-    {% endif %}
-
     {% for d in Departamentos %}
       <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse{{d.descripcion}}" aria-expanded="true"
@@ -87,9 +83,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Acciones:</h6>
                 <a class="collapse-item" href="{% url 'catalogos:listar_productos' pk=d.id %}"> Registros Externos</a>
-				<a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Registros Internos</a>
-				<a class="collapse-item" href="{% url 'catalogos:listar_productos_sinregistro' pk=d.id %}"> Productos sin registro</a>
-              <!--<a class="collapse-item" href="#"> Historial</a>-->
+				        <a class="collapse-item" href="{% url 'catalogos:listar_productos_internos' pk=d.id %}"> Registros Internos</a>
+				        <a class="collapse-item" href="{% url 'catalogos:listar_productos_sinregistro' pk=d.id %}"> Productos sin registro</a>
+                <!--<a class="collapse-item" href="#"> Historial</a>-->
                 <a class="collapse-item" href="{% url 'catalogos:listar_sace_todos' pk=d.id %}"> SACE</a>
                 <a class="collapse-item"  href="{% url 'estadistica:estadisticas_departamentos' pk=d.id %}"> Estadisticas</a>
             </div>
@@ -102,7 +98,7 @@
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSystem"
             aria-expanded="true" aria-controls="collapseSystem">
             <i class="fas fa-fw fa-wrench"></i>
-            <span>System</span>
+            <span>Configuración</span>
           </a>
           <div id="collapseSystem" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -112,7 +108,7 @@
               <a class="collapse-item" href="{% url 'catalogos:listar_productostodos'%}"> Migración Externos</a>
               <a class="collapse-item" href="{% url 'catalogos:listar_productostodosinternos' %}"> Migración Interna</a>
               <!--<a class="collapse-item" href="#"> Historial</a>-->
-              <a class="collapse-item" href="{% url 'catalogos:historial_list' %}"> SACE</a>
+              <a class="collapse-item" href="{% url 'catalogos:listar_sace_todos' pk=0 %}"> SACE</a>
               <a class="collapse-item" href="#"> Estadisticas</a>
 
             </div>

@@ -37,7 +37,7 @@ class Estadisticasdepartamentales(ListView):
         #Productos Externos
         q1 = Producto.objects.filter(subcategoria__categoria__pk =self.kwargs['pk']).values(
                       'subcategoria__descripcion'
-                   ).annotate(Count('pk'), estado='Externos')
+                   ).annotate(Count('pk'))
         q2 = ProductoINTERNO.objects.filter(subcategoria__categoria__pk =self.kwargs['pk']).values(
                       'subcategoria__descripcion'
                    ).annotate(Count('pk'))
