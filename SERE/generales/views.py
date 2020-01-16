@@ -42,23 +42,35 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
             )
             dep_grap.append(
                     p.departamento.descripcion
-            )
-		#Productos Externos
-        productos = Producto.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
-                   ).annotate(Count('pk'))
-		#Productos Internos
-        productosinternos = ProductoINTERNO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
-                   ).annotate(Count('pk'))
-		#Productos Sin registro
-        productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
-                   ).annotate(Count('pk'))
+            )	
         
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
-        context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+            productos = Producto.objects.all().values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+            productosinternos = ProductoINTERNO.objects.all().values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+            productossinregistro = ProductoSINREGISTRO.objects.all().values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+            #Productos Externos
+            productos = Producto.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+		    #Productos Internos
+            productosinternos = ProductoINTERNO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
+		    #Productos Sin registro
+            productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
+                      'subcategoria__categoria__descripcion'
+                   ).annotate(Count('pk'))
         context['dep_grap'] = Perfil.objects.filter(user = self.request.user)
         context['productos'] = productos
         context['productosinternos'] = productosinternos
