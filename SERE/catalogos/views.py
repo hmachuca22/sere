@@ -1,5 +1,5 @@
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy,reverse
 from django.views import generic
 from django.views.generic import View, TemplateView, CreateView, ListView, UpdateView, DeleteView
@@ -832,8 +832,8 @@ class Listarhistorial(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['historial'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])
-        context['alumno'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])[:1]
+        context['historial'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])        
+        context['alumno'] = DETALLESACE.objects.filter(identidadsace=self.kwargs['pk'])[:1]        
         dep = Producto.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
         valores = []
         lista = Producto.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
@@ -890,3 +890,36 @@ class Listarhistorialtodos(ListView):
         else:
             context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
+
+
+# books/views.py
+class ProductoDetailView(View):
+    def get(self, request, *args, **kwargs):
+        catalogo = get_object_or_404(Producto, pk=kwargs['pk'])
+        context = {'catalogo': catalogo}        
+        if  self.request.user.is_superuser:
+            context['historial'] = DETALLESACE.objects.all()
+        else:
+            context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        context['dep'] = self.kwargs['pk']
+        dep = Producto.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = Producto.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
+        departamentos = []
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return render(request, 'catalogos/informacion_list.html', context)
+
+    

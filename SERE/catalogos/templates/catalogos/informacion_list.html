@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block contenido %}
+<!-- Earnings (Monthly) Card Example -->
+
+<div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <h2 style="text-align: center;">INFORMACION GENERAL</h2>
+              <div class="panel-heading">
+                 <a href="{% url 'generales:home_user' %}" class="btn btn-info"><span class="fa fa-undo"></span> Regresar</a>
+                 <a href="{% url 'catalogos:categoria_print'%}" target="print" class="btn btn-info"><span class="fa fa-print"></span> Imprimir</a>
+              </div>
+              <br>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+		<div class="card mb-3" style="max-width: 80%;">
+  			<div class="row no-gutters">
+    			<div class="col-md-2">
+      			<img src="https://st2.depositphotos.com/1007566/12011/v/950/depositphotos_120118192-stock-illustration-student-boy-school-icon.jpg" class="card-img" alt="...">
+    			</div>
+    		<div class="col-md-8">
+      			<div class="card-body">
+        		<ul class="list-group">				
+					<h5 class="card-title">
+					<span class="badge badge-primary"> Información del Alumno  </span>
+					<div class="card-body">
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">						
+							{% if catalogo.estado  == 1 %}
+							<span class="badge badge-primary"> Ingresado </span>
+							{% elif catalogo.estado  == 2 %}
+							<span class="badge badge-warning"> NNA-NCR </span>
+							{% elif catalogo.estado  == 3 %}
+							 <span class="badge badge-danger"> NNA-OCR </span>
+							{% elif obj.estado  == 4 %}
+							<span class="badge badge-success"> NNA-SCR </span>
+							{% elif catalogo.estado  == 5 %}
+							<span class="badge badge-info"> Validado </span>
+							{% endif %}
+					</div>
+					</div>
+					</h5>
+					<li class="list-group-item"><strong>Identidad :</strong> {{catalogo.identidadext}}</li>
+					<li class="list-group-item"><strong>Origen :</strong> {{catalogo.origen}}</li>
+  					<li class="list-group-item"><strong>Nombre :</strong> {{catalogo.descripcion}}</li>
+  					<li class="list-group-item"><strong>Genero :</strong> {{catalogo.genero}}</li>
+						<li class="list-group-item"><strong>Edad :</strong> {{catalogo.edad}}</li>					
+				</ul>        		
+      			</div>
+				</div>
+				<div class="col-md-10">
+      			<div class="card-body">
+        		<ul class="list-group">				
+								<span class="badge badge-primary"> Información de destino del alumno </span>
+					</h5>
+  					<li class="list-group-item"><strong>Centro Educativo :</strong> {{catalogo.codigoce}} - {{catalogo.centroeducativo}} </li>
+  					<li class="list-group-item"><strong>Grado :</strong> {{catalogo.grado}}</li>
+						<li class="list-group-item"><strong>Edad :</strong> {{catalogo.edad}}</li>					
+				</ul>        		
+      			</div>
+				</div>
+				
+				<div class="col-md-10">
+      			<div class="card-body">
+        		<ul class="list-group">				
+								<span class="badge badge-primary"> Información de contacto del alumno </span>
+					</h5>
+  					<li class="list-group-item"><strong>Telefono :</strong> {{catalogo.telefono}} </li>
+  					<li class="list-group-item"><strong>Encargado :</strong> {{catalogo.idencargado}} - {{catalogo.nombreencargado}} </li>
+						<li class="list-group-item"><strong>Edad :</strong> {{catalogo.edad}}</li>					
+						<li class="list-group-item"><strong>Obervaciones :</strong> {{catalogo.observaciones}}</li>					
+				</ul>        		
+      		</div>
+    		</div>
+			</div>
+			
+		</div>    
+ 
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	  $('#dataTables-example').DataTable(
+				{
+					responsive: true
+				}
+			);});
+
+</script>
+{% endblock contenido%}

@@ -27,7 +27,8 @@ urlpatterns = [
     path('subcategoria/edit/<int:pk>', SubCategoriaEdit.as_view(), name='subcategoria_edit'),
     path('subcategoria/delete/<int:pk>', SubCategoriaDel.as_view(), name='subcategoria_delete'),
 
-    path('productos/', ProductoView.as_view(), name='producto_list'),
+    path('productos/', ProductoView.as_view(), name='producto_list'),    
+    url(r'^productos/ver/(?P<pk>\d+)/$',ProductoDetailView.as_view(), name='productos_ver'),
     path('producto/new', ProductoNew.as_view(), name='producto_new'),
     path('producto/edit/<int:pk>', ProductoEdit.as_view(), name='producto_edit'),
 

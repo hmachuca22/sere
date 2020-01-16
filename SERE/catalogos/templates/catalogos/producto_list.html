@@ -27,7 +27,7 @@
 	 <th>NNA-NCR</th>
 	 <th>NNA-OCR</th>
 	 <th>NNA-SCR</th>
-   <th>Pendiente</th>
+   <th>Validado</th>
   <th>Creado</th>
   <th>Modificado</th>
   <th>Acciones</th>
@@ -107,8 +107,9 @@
       <td>{{ item.creado|date:'d/m/Y H:i' }}</td>
       <td>{{ item.modificado|date:'d/m/Y H:i' }}</td>
       <td>
-        <a href="{% url 'catalogos:listar_sace' item.identidadext.pk %}" class="btn btn-primary btn-circle btn-sm" ><span class="fa fa-search"></span></a>
-        <a href="{% url 'catalogos:producto_edit' item.id %}" class="btn btn-primary btn-circle btn-sm"><span class="fa fa-edit "></span></a>
+				<a href="{% url 'catalogos:listar_sace' item.identidadext.pk %}" class="btn btn-primary btn-circle btn-sm" ><span class="fa fa-search"></span></a>
+				<a href="{% url 'catalogos:producto_edit' item.id %}" class="btn btn-primary btn-circle btn-sm"><span class="fa fa-check "></span></a>
+        <a href="{% url 'catalogos:productos_ver' item.id %}" class="btn btn-primary btn-circle btn-sm"><span class="fa fa-edit "></span></a>
         <a href="{% url 'catalogos:subcategoria_delete' item.id %}" class="btn btn-danger btn-circle btn-sm"><span class="fa fa-trash "></span></a>
       </td>
   </tr>
