@@ -41,7 +41,11 @@
 					</div>
 					</h5>
 					<li class="list-group-item"><strong>Identidad :</strong> {{catalogo.identidadext}}</li>
+					{% if catalogo.subcategoria %}
+					<li class="list-group-item"><strong>Origen :</strong> {{catalogo.subcategoria}}</li>
+					{% else %}
 					<li class="list-group-item"><strong>Origen :</strong> {{catalogo.origen}}</li>
+					{% endif %}
   					<li class="list-group-item"><strong>Nombre :</strong> {{catalogo.descripcion}}</li>
   					<li class="list-group-item"><strong>Genero :</strong> {{catalogo.genero}}</li>
 						<li class="list-group-item"><strong>Edad :</strong> {{catalogo.edad}}</li>					
@@ -53,6 +57,9 @@
         		<ul class="list-group">				
 								<span class="badge badge-primary"> Información de destino del alumno </span>
 					</h5>
+					{% if catalogo.destino %}
+					<li class="list-group-item"><strong>Destino :</strong> {{catalogo.destino}}</li>					
+					{% endif %}
   					<li class="list-group-item"><strong>Centro Educativo :</strong> {{catalogo.codigoce}} - {{catalogo.centroeducativo}} </li>
   					<li class="list-group-item"><strong>Grado :</strong> {{catalogo.grado}}</li>
 						<li class="list-group-item"><strong>Edad :</strong> {{catalogo.edad}}</li>					
