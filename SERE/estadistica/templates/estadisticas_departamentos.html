@@ -15,77 +15,199 @@
               <br>
               </div>
             </div>
-          </div>
+					</div>
+
 <div class="row">
-            <div class="panel-body">
-                <div id="chart_matricula" class="col-md-12" style="max-width:1200px; min-height: 500px; margin: 0 auto">
-                </div>
-            </div>
-        </div>
+	<div class="col-xl-4 col-lg-5">
+		<div class="card shadow mb-4">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Todos los migrantes del municipio</h6>
+			</div>
+			<!-- Card Body -->
+			<div class="card-body">
+				<div class="chart-pie pt-4">
+					<canvas id="myPieChart"></canvas>
+				</div>
+				<hr>
+			</div>
+		</div>
+		<div class="card shadow mb-4">
+				<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Migrantes del Municipio</h6>
+				</div>
+				<div class="card-body">
+				<div class="chart-bar">
+					<canvas id="myBarChart"></canvas>
+				</div>
+				<hr>
+				Migrantes
+				</div>
+			</div>
+	</div>						
+</div>
 </div>
 
 
 <script src="{% static 'base/js/jquery.min.js' %}"></script>
 <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script type="text/javascript">
-$('#chart_matricula').highcharts({
-	chart: {
-		type: 'line'
-	},
-	title: {
-		text: 'Matrícula Total Histórica'
-	},
-	subtitle: {
-		text: '(Total de matrícula por Campus y Período)'
-	},
-	xAxis: {
-		categories: [
-				{% for p in productos %}
-					"{{p.subcategoria__descripcion}}",
-				{% endfor %}
-			]
-	},
-	yAxis: {
-		min: 0,
-		title: {
-			text: 'Totales'
-		},
-		stackLabels: {
-			enabled: true,
-			style: {
-				fontWeight: 'bold',
-				color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-			}
-		}
-	},
-	legend: {
-		align: 'right',
-		verticalAlign: 'middle',
-		layout:'vertical',
-	},
-	// tooltip: {
-	//     formatter: function () {
-	//         return '<b>' + this.x + '</b><br/>' +
-	//             this.series.name + ': ' + this.y + '<br/>' +
-	//             'Total: ' + this.point.stackTotal;
-	//     }
-	// },
-	series: [
-		{% for p in producto %}
-			name:'{{p.subcategoria__descripcion}}',
-			data:{{p.count}}
-		{% endfor %}
-	]
-});
-	$(document).ready( function () {
-	  $('#dataTables-example').DataTable(
-				{
-					responsive: true
-				}
-			);
-});
+<script src="{% static 'base/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<script>
 
+	$(document).ready( function () {
+	  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+	  Chart.defaults.global.defaultFontColor = '#858796';
+
+  // Pie Chart Example
+  var ctx = document.getElementById("myPieChart");
+
+  //Productos
+  var myPieChart = new Chart(ctx, {
+	type: 'pie',
+	data: {
+	  labels: [{% for p in productos %}"{{p.subcategoria__descripcion}}",{%endfor%}],
+	  datasets: [{
+		data: [{% for p in productos %}"{{p.pk__count}}",{%endfor%}],
+		backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+		hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+		hoverBorderColor: "rgba(234, 236, 244, 1)",
+	  }],
+	},
+	options: {
+	  maintainAspectRatio: true,
+	  tooltips: {
+		backgroundColor: "rgb(255,255,255)",
+		bodyFontColor: "#858796",
+		borderColor: '#dddfeb',
+		borderWidth: 1,
+		xPadding: 15,
+		yPadding: 15,
+		displayColors: false,
+		caretPadding: 10,
+	  },
+	  legend: {
+		display: false
+	  },
+	  cutoutPercentage: 80,
+	},
+  });
+
+  // Set new default font family and font color to mimic Bootstrap's default styling
+
+  // Bar Chart Example
+  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  Chart.defaults.global.defaultFontColor = '#858796';
+
+  function number_format(number, decimals, dec_point, thousands_sep) {
+	// *     example: number_format(1234.56, 2, ',', ' ');
+	// *     return: '1 234,56'
+	number = (number + '').replace(',', '').replace(' ', '');
+	var n = !isFinite(+number) ? 0 : +number,
+	  prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+	  sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+	  dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+	  s = '',
+	  toFixedFix = function(n, prec) {
+		var k = Math.pow(10, prec);
+		return '' + Math.round(n * k) / k;
+	  };
+	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+	if (s[0].length > 3) {
+	  s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+	}
+	if ((s[1] || '').length < prec) {
+	  s[1] = s[1] || '';
+	  s[1] += new Array(prec - s[1].length + 1).join('0');
+	}
+	return s.join(dec);
+  }
+  var ctx = document.getElementById("myBarChart");
+  var myBarChart = new Chart(ctx, {
+	type: 'bar',
+	data: {
+	  labels:  [{% for p in productos %}"{{p.subcategoria__descripcion}}",{%endfor%}],
+	  datasets: [{
+		label: "Migrantes Externos",
+		backgroundColor: "#4e73df",
+		hoverBackgroundColor: "#2e59d9",
+		borderColor: "#4e73df",
+		data: [{% for p in productos %}{{p.pk__count}},{%endfor%}],
+	  }],
+	},
+	options: {
+	  maintainAspectRatio: false,
+	  layout: {
+		padding: {
+		  left: 10,
+		  right: 25,
+		  top: 25,
+		  bottom: 0
+		}
+	  },
+	  scales: {
+		xAxes: [{
+		  time: {
+			unit: 'month'
+		  },
+		  gridLines: {
+			display: true,
+			drawBorder: false
+		  },
+		  ticks: {
+			maxTicksLimit: 6
+		  },
+		  maxBarThickness: 25,
+		}],
+		yAxes: [{
+		  ticks: {
+			min: 0,
+			max: 5,
+			maxTicksLimit: 5,
+			padding: 3,
+			// Include a dollar sign in the ticks
+			callback: function(value, index, values) {
+			  return number_format(value);
+			}
+		  },
+		  gridLines: {
+			color: "rgb(234, 236, 244)",
+			zeroLineColor: "rgb(234, 236, 244)",
+			drawBorder: false,
+			borderDash: [2],
+			zeroLineBorderDash: [2]
+		  }
+		}],
+	  },
+	  legend: {
+		display: true
+	  },
+	  tooltips: {
+		titleMarginBottom: 10,
+		titleFontColor: '#6e707e',
+		titleFontSize: 15,
+		backgroundColor: "rgb(255,255,255)",
+		bodyFontColor: "#858796",
+		borderColor: '#dddfeb',
+		borderWidth: 1,
+		xPadding: 15,
+		yPadding: 15,
+		displayColors: false,
+		caretPadding: 10,
+		callbacks: {
+		  label: function(tooltipItem, chart) {
+			var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+			return datasetLabel + ':  Retornados ' + number_format(tooltipItem.yLabel);
+		  }
+		}
+	  },
+	}
+  });
+});
+	
 </script>
+
+
 {% endblock contenido%}

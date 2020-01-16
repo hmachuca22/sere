@@ -52,8 +52,9 @@ class Estadisticasdepartamentales(ListView):
             departamentos.append(
                     p.departamento.id
             )
+        context['productos'] = productos
         if  self.request.user.is_superuser:
-            context['Departamentos'] = Categoria.objects.all()
+            context['Departamentos'] = Categoria.objects.all()            
         else:
             context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return context
