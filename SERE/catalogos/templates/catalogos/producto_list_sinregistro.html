@@ -24,8 +24,10 @@
   <th>Identidad</th>
   <th>Nombre</th>
   <th>Ingresado</th>
-  <th>Validado</th>
-  <th>Pendiente</th>
+	 <th>NNA-NCR</th>
+	 <th>NNA-OCR</th>
+	 <th>NNA-SCR</th>
+   <th>Pendiente</th>
   <th>Creado</th>
   <th>Modificado</th>
   <th>Acciones</th>
@@ -38,45 +40,71 @@
       <th>{{ item.subcategoria}}</th>
       <th>{{ item.identidadext}}</th>
       <th>{{ item.descripcion}}</th>
-	   <th>
- 		{% if item.estado == 1 %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}1" checked >
- 			<label class="custom-control-label" for="e{{item.id}}1" active></label>
- 		</div>
- 		{% else %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}1"  >
- 			<label class="custom-control-label" for="e{{item.id}}1" active></label>
- 		</div>
- 		{% endif %}
- 	  </th>
- 	  <th>
- 		{% if item.estado == 2 %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}2" checked >
- 			<label class="custom-control-label" for="e{{item.id}}2" active></label>
- 		</div>
- 		{% else %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}2"  >
- 			<label class="custom-control-label" for="e{{item.id}}2" active></label>
- 		</div>
- 		{% endif %}
- 	  </th>
- 	  <th>
- 		{% if item.estado == 3 %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}3" checked >
- 			<label class="custom-control-label" for="e{{item.id}}3" active></label>
- 		</div>
- 		{% else %}
- 		<div class="custom-control custom-switch">
- 			<input type="checkbox" class="custom-control-input" id="e{{item.id}}3"  >
- 			<label class="custom-control-label" for="e{{item.id}}3" active></label>
- 		</div>
- 		{% endif %}
- 	  </th>
+			<th>
+				{% if item.estado == 1 %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}1" checked >
+					<label class="custom-control-label" for="e{{item.id}}1" active></label>
+				</div>
+				{% else %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}1"  >
+					<label class="custom-control-label" for="e{{item.id}}1" active></label>
+				</div>
+				{% endif %}
+				</th>
+				<th>
+				{% if item.estado == 2 %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}2" checked >
+					<label class="custom-control-label" for="e{{item.id}}2" active></label>
+				</div>
+				{% else %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}2"  >
+					<label class="custom-control-label" for="e{{item.id}}2" active></label>
+				</div>
+				{% endif %}
+				</th>
+				<th>
+				{% if item.estado == 3 %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}3" checked >
+					<label class="custom-control-label" for="e{{item.id}}3" active></label>
+				</div>
+				{% else %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}3"  >
+					<label class="custom-control-label" for="e{{item.id}}3" active></label>
+				</div>
+				</th>
+				{% endif %}
+				<th>
+				{% if item.estado == 4 %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}4" checked >
+					<label class="custom-control-label" for="e{{item.id}}4" active></label>
+				</div>
+				{% else %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}4"  >
+					<label class="custom-control-label" for="e{{item.id}}4" active></label>
+				</div>
+				{% endif %}
+				</th>
+				<th>
+				{% if item.estado == 5 %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}5" checked >
+					<label class="custom-control-label" for="e{{item.id}}5" active></label>
+				</div>
+				{% else %}
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="e{{item.id}}5"  >
+					<label class="custom-control-label" for="e{{item.id}}5" active></label>
+				</div>
+				{% endif %}		
+				</th>
       <td>{{ item.creado|date:'d/m/Y H:i' }}</td>
       <td>{{ item.modificado|date:'d/m/Y H:i' }}</td>
       <td>
