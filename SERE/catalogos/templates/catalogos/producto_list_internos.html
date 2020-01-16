@@ -128,7 +128,8 @@
                   <td>
                     <a href="#" class="btn btn-primary btn-circle btn-sm"><span class="fa fa-check"></span></a>
                     <a href="{% url 'catalogos:producto_edit_internos' item.id %}" class="btn btn-primary btn-circle btn-sm"><span class="fa fa-edit"></span></a>
-                    <a href="{% url 'catalogos:subcategoria_delete' item.id %}" class="btn btn-danger btn-circle btn-sm"><span class="fa fa-trash"></span></a>
+										<a href="{% url 'catalogos:subcategoria_delete' item.id %}" class="btn btn-danger btn-circle btn-sm"><span class="fa fa-trash"></span></a>
+										<a href="{% url 'catalogos:productosinternos_ver' item.id %}" class="btn btn-danger btn-circle btn-sm"><span class="fa fa-check "></span></a>
                   </td>
               </tr>
               {% endfor %}

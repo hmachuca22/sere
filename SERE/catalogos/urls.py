@@ -37,6 +37,7 @@ urlpatterns = [
 	url(r'^productos/internos/listar/(?P<pk>\d+)/$',ListarProductosInternos.as_view(model=ProductoINTERNO), name='listar_productos_internos'),
     url(r'^productos/internos/listar/all',ListarProductostodosinternos.as_view(model=Producto), name='listar_productostodosinternos'),
 	#
+    url(r'^productos/internos/ver/(?P<pk>\d+)/$',ProductoInternoDetailView.as_view(), name='productosinternos_ver'),
     path('producto/new/internos', ProductoNewINTERNOS.as_view(), name='producto_new_internos'),
     path('producto/edit/internos/<int:pk>', ProductoEditINTERNOS.as_view(), name='producto_edit_internos'),
 
@@ -46,6 +47,7 @@ urlpatterns = [
 	#
     path('producto/new/sinregistro', ProductoNewSINREGISTRO.as_view(), name='producto_new_sinregistro'),
     path('producto/edit/sinregistro/<int:pk>', ProductoEditSINREGISTRO.as_view(), name='producto_edit_sinregistro'),
+    url(r'^productos/sinregistro/ver/(?P<pk>\d+)/$',ProductoSinregistroDetailView.as_view(), name='productosinregistro_ver'),
 
 
     path('historial', historial_list, name='historial_list'),

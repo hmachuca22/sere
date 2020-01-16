@@ -922,4 +922,61 @@ class ProductoDetailView(View):
             context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return render(request, 'catalogos/informacion_list.html', context)
 
+class ProductoInternoDetailView(View):
+    def get(self, request, *args, **kwargs):
+        catalogo = get_object_or_404(ProductoINTERNO, pk=kwargs['pk'])
+        context = {'catalogo': catalogo}        
+        if  self.request.user.is_superuser:
+            context['historial'] = DETALLESACE.objects.all()
+        else:
+            context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        context['dep'] = self.kwargs['pk']
+        dep = ProductoINTERNO.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = ProductoINTERNO.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
+        departamentos = []
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return render(request, 'catalogos/informacion_list.html', context)
+    
+class ProductoSinregistroDetailView(View):
+    def get(self, request, *args, **kwargs):
+        catalogo = get_object_or_404(ProductoSINREGISTRO, pk=kwargs['pk'])
+        context = {'catalogo': catalogo}        
+        if  self.request.user.is_superuser:
+            context['historial'] = DETALLESACE.objects.all()
+        else:
+            context['historial'] = DETALLESACE.objects.filter(departamento_id=self.kwargs['pk'])
+        context['dep'] = self.kwargs['pk']
+        dep = ProductoSINREGISTRO.objects.filter(identidadext=self.kwargs['pk']).values('subcategoria__categoria__pk').distinct()
+        valores = []
+        lista = ProductoSINREGISTRO.objects.filter(identidadext=self.kwargs['pk']).order_by('-pk')
+        for d in dep:
+           context['Departamento']  = d['subcategoria__categoria__pk']
+        for l in lista:
+           print(l.pk)
+           valores.append(l.pk)
+        context['Lista'] = json.dumps(valores)
+        departamentos = []
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return render(request, 'catalogos/informacion_list.html', context)
     
