@@ -4,126 +4,97 @@
     Inicio del sitio
 {% endblock head_title %}
 {% block contenido %}
+<style>
+		{% for d in Departamentos%}
+		#chartdivpie{{d.id}} {
+			width: 80%;
+			height: 80%;
+		}
+		{% endfor %}
+		
+		</style>
  <!-- Begin Page Content -->
- <div class="container-fluid">
-
-    <!-- Page Heading -->  
-    <!-- Content Row -->
-    <div class="row">
-
-      <div class="col-xl-8 col-lg-7">
-
-        <!-- Area Chart -->
-        <!--<div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-          </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="myAreaChart"></canvas>
-            </div>
-            <hr>
-            Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
-          </div>
-        </div>
-		-->
-
-        <!-- Bar Chart -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Grafico de los Migrantes Externos</h6>
-          </div>
-          <div class="card-body">
-            <div class="chart-bar">
-              <canvas id="myBarChart"></canvas>
-            </div>
-            <hr>
-            Grafico que representa los retornados externos registrados en el sistema
-          </div>
-        </div>
-        </div>
-        <!-- Donut Chart -->
-        <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Retornados externos</h6>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-            <div class="chart-pie pt-4">
-              <canvas id="myPieChart"></canvas>
-            </div>
-            <hr>
-          </div>
-        </div>
-      </div>
-        </div>
-		<!-- Bar Chart -->
-		<div class="card shadow mb-4">
-  <div class="card-header py-3">
-	<h6 class="m-0 font-weight-bold text-primary">Grafico de los Migrantes  Internos</h6>
-  </div>
-  <div class="card-body">
-	<div class="chart-bar">
-	  <canvas id="myBarChart2"></canvas>
-	</div>
-	<hr>
-	Grafico que representa los  Migrantes Internos registrados en el sistema
-  </div>
-</div>
+ <div class="container-fluid">        
+		<!-- tabs de departamentos -->		
+		<nav>
+  	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		{% for d in Departamentos%}
+				{% if d.pk == 3%}			
+					<a class="nav-item nav-link active" id="nav-{{d.descripcion}}-tab" data-toggle="tab" href="#nav-{{d.pk}}" role="tab" aria-controls="nav-{{d.pk}}" aria-selected="true">{{d.descripcion}}</a>				
+				{% else %}				
+					<a class="nav-item nav-link" id="nav-{{d.pk}}-tab" data-toggle="tab" href="#nav-{{d.pk}}" role="tab" aria-controls="nav-{{d.pk}}" aria-selected="false">{{d.descripcion}}</a>				
+					{% endif %}
+		{% endfor %}		
 		</div>
-		<!-- Donut Chart -->
-		<div class="col-xl-4 col-lg-5">
-		<div class="card shadow mb-4">
-  		<!-- Card Header - Dropdown -->
-  		<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos</h6>
-  		</div>
-  		<!-- Card Body -->
-  		<div class="card-body">
-		<div class="chart-pie pt-4">
-	  	<canvas id="myPieChart2"></canvas>
-		</div>
-		<hr>
-  		</div>
-		</div>
-		</div>
-		</div>
-<!-- Bar Chart -->
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-	<h6 class="m-0 font-weight-bold text-primary">Grafico de los Migrantes sin registro</h6>
-  </div>
-  <div class="card-body">
-	<div class="chart-bar">
-	  <canvas id="myBarChart3"></canvas>
-	</div>
-	<hr>
-	Grafico que representa los retornados sin registrados en el sistema
-  </div>
-</div>
-</div>
-<!-- Donut Chart -->
-<div class="col-xl-4 col-lg-5">
-<div class="card shadow mb-4">
-  <!-- Card Header - Dropdown -->
-  <div class="card-header py-3">
-	<h6 class="m-0 font-weight-bold text-primary">Retornados sin registro</h6>
-  </div>
-  <!-- Card Body -->
-  <div class="card-body">
-	<div class="chart-pie pt-4">
-	  <canvas id="myPieChart3"></canvas>
-	</div>
-	<hr>
-  </div>
-</div>
-</div>
-</div>
+	</nav>
+		
+	<div class="tab-content" id="nav-tabContent">
+		{% for d in Departamentos%}		
+				{% if d.pk == 3%}
+				<div class="tab-pane fade show active" id="nav-{{d.pk}}" role="tabpanel" aria-labelledby="nav-{{d.pk}}-tab">
+						<div class="card">
+								<div class="card-header">
+								<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel </h6>
+								</div>
+								<div class="card-body">
+								<div class="chart-bar">
+										<div id="chartdivpie{{d.pk}}"></div>
+								</div>
+								<hr>
+								Grafico que representa los  Migrantes Internos registrados en el sistema
+								</div>
+						</div>
+						<div class="card">
+								<div class="card-header">
+								<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras </h6>
+								</div>
+								<div class="card-body">
+								<div class="chart-bar">
+										<div id="chartdivbar{{d.pk}}"></div>
+								</div>
+								<hr>
+								Grafico que representa los  Migrantes Internos registrados en el sistema
+								</div>
+						</div>
+				</div>
+				{% else %}
+				<div class="tab-pane fade" id="nav-{{d.pk}}" role="tabpanel" aria-labelledby="nav-{{d.pk}}-tab">
+						<div class="card">
+								<div class="card-header">
+								<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel</h6>
+								</div>
+								<div class="card-body">
+								<div class="chart-bar">
+										<div id="chartdivpie{{d.pk}}"></div>
+								</div>
+								<hr>
+								Grafico que representa los  Migrantes Internos registrados en el sistema
+								</div>
+						</div>
+						<div class="card">
+								<div class="card-header">
+								<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras</h6>
+								</div>
+								<div class="card-body">
+								<div class="chart-bar">
+										<div id="chartdivbar{{d.pk}}"></div>
+								</div>
+								<hr>
+								Grafico que representa los  Migrantes Internos registrados en el sistema
+								</div>
+						</div>
+				</div>		
+				{% endif %}				
+		{% endfor %}	
+	</div>								
+  </div>		
+	<!-- /.container-fluid -->
+	<!-- Resources -->
+	<script src="{% static 'base/js/graficos/core.js' %}"></script>	
+	<script src="{% static 'base/js/graficos/charts.js' %}"></script>
+	<script src="{% static 'base/js/graficos/animated.js' %}"></script>		
+	<script src="https://www.amcharts.com/lib/4/themes/frozen.js"></script>
 
-  </div>
-  <!-- /.container-fluid -->
   <script src="{% static 'base/js/jquery.min.js' %}"></script>
   <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -139,457 +110,87 @@
   <!-- Page level custom scripts archivos -->
   <!--<script src="{% static 'base/js/demo/chart-area-demo.js' %}"></script>-->
 <script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_frozen);
+am4core.useTheme(am4themes_animated);
+
+{% for d in departamentos_graficos %}
+// Primer Grafico Pastel
+var {{d.chart}} = am4core.create("{{d.div}}", am4charts.PieChart3D);
+{{d.chart}}.hiddenState.properties.opacity = 0; // this creates initial fade-in
+{{d.chart}}.data = [
+  {% for p in productos %}	
+		{% if p.pk  == d.id %}			
+      {	
+				{% if p.Genero == '1' %}	
+				"country" : "Masculino",
+				{%else%}
+				"country" : "Femenino",
+				{% endif %}
+				"litres" : {{p.Cantidad}} 
+			},
+		 {% endif %}
+			{%endfor%}];
+			//{{d.chart}}.innerRadius = am4core.percent(40);
+			//{{d.chart}}.depth = 120;
+			{{d.chart}}.legend = new am4charts.Legend();
+var series = {{d.chart}}.series.push(new am4charts.PieSeries3D());
+series.dataFields.value = "litres";
+//series.dataFields.depthValue = "litres";
+series.dataFields.category = "country";
+//series.slices.template.cornerRadius = 5;
+//series.colors.step = 3;
+// cointainer to hold both charts
+// Create axes
+// Grafico de Barras
 
 
-$(document).ready( function () {
-	  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-	  Chart.defaults.global.defaultFontColor = '#858796';
+var {{d.chart1}} = am4core.create("{{d.div1}}", am4charts.XYChart);
+{{d.chart1}}.data = [
+  {% for p in productos %}	
+		{% if p.pk  == d.id %}			
+      {	
+				{% if p.Genero == '1' %}	
+				"country" : "Masculino",
+				{%else%}
+				"country" : "Femenino",
+				{% endif %}
+				"visits" : {{p.Cantidad}} 
+			},
+		 {% endif %}
+			{%endfor%}];
+var categoryAxis = {{d.chart1}}.xAxes.push(new am4charts.CategoryAxis());
 
-  // Pie Chart Example
-  var ctx = document.getElementById("myPieChart");
 
-  //Productos
-  var myPieChart = new Chart(ctx, {
-	type: 'pie',
-	data: {
-	  labels: [{% for p in productos %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-	  datasets: [{
-		data: [{% for p in productos %}"{{p.pk__count}}",{%endfor%}],
-		backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-		hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-		hoverBorderColor: "rgba(234, 236, 244, 1)",
-	  }],
-	},
-	options: {
-	  maintainAspectRatio: true,
-	  tooltips: {
-		backgroundColor: "rgb(255,255,255)",
-		bodyFontColor: "#858796",
-		borderColor: '#dddfeb',
-		borderWidth: 1,
-		xPadding: 15,
-		yPadding: 15,
-		displayColors: false,
-		caretPadding: 10,
-	  },
-	  legend: {
-		display: false
-	  },
-	  cutoutPercentage: 80,
-	},
-  });
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.minGridDistance = 60;
 
-  // Set new default font family and font color to mimic Bootstrap's default styling
-
-  // Bar Chart Example
-  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-  Chart.defaults.global.defaultFontColor = '#858796';
-
-  function number_format(number, decimals, dec_point, thousands_sep) {
-	// *     example: number_format(1234.56, 2, ',', ' ');
-	// *     return: '1 234,56'
-	number = (number + '').replace(',', '').replace(' ', '');
-	var n = !isFinite(+number) ? 0 : +number,
-	  prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-	  sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-	  dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-	  s = '',
-	  toFixedFix = function(n, prec) {
-		var k = Math.pow(10, prec);
-		return '' + Math.round(n * k) / k;
-	  };
-	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
-	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-	if (s[0].length > 3) {
-	  s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-	}
-	if ((s[1] || '').length < prec) {
-	  s[1] = s[1] || '';
-	  s[1] += new Array(prec - s[1].length + 1).join('0');
-	}
-	return s.join(dec);
+categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+  if (target.dataItem && target.dataItem.index & 2 == 2) {
+    return dy + 25;
   }
-  var ctx = document.getElementById("myBarChart");
-  var myBarChart = new Chart(ctx, {
-	type: 'bar',
-	data: {
-	  labels:  [{% for p in productos %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-	  datasets: [{
-		label: "Migrantes Externos",
-		backgroundColor: "#4e73df",
-		hoverBackgroundColor: "#2e59d9",
-		borderColor: "#4e73df",
-		data: [{% for p in productos %}{{p.pk__count}},{%endfor%}],
-	  }],
-	},
-	options: {
-	  maintainAspectRatio: false,
-	  layout: {
-		padding: {
-		  left: 10,
-		  right: 25,
-		  top: 25,
-		  bottom: 0
-		}
-	  },
-	  scales: {
-		xAxes: [{
-		  time: {
-			unit: 'month'
-		  },
-		  gridLines: {
-			display: true,
-			drawBorder: false
-		  },
-		  ticks: {
-			maxTicksLimit: 6
-		  },
-		  maxBarThickness: 25,
-		}],
-		yAxes: [{
-		  ticks: {
-			min: 0,
-			max: 5,
-			maxTicksLimit: 5,
-			padding: 3,
-			// Include a dollar sign in the ticks
-			callback: function(value, index, values) {
-			  return number_format(value);
-			}
-		  },
-		  gridLines: {
-			color: "rgb(234, 236, 244)",
-			zeroLineColor: "rgb(234, 236, 244)",
-			drawBorder: false,
-			borderDash: [2],
-			zeroLineBorderDash: [2]
-		  }
-		}],
-	  },
-	  legend: {
-		display: true
-	  },
-	  tooltips: {
-		titleMarginBottom: 10,
-		titleFontColor: '#6e707e',
-		titleFontSize: 15,
-		backgroundColor: "rgb(255,255,255)",
-		bodyFontColor: "#858796",
-		borderColor: '#dddfeb',
-		borderWidth: 1,
-		xPadding: 15,
-		yPadding: 15,
-		displayColors: false,
-		caretPadding: 10,
-		callbacks: {
-		  label: function(tooltipItem, chart) {
-			var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-			return datasetLabel + ':  Retornados ' + number_format(tooltipItem.yLabel);
-		  }
-		}
-	  },
-	}
-  });
-//////22222222/////////////////////////////////////////////////////////////////////
-  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-  Chart.defaults.global.defaultFontColor = '#858796';
-
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart2");
-
-//Productos
-var myPieChart2 = new Chart(ctx, {
-type: 'pie',
-data: {
-  labels: [{% for p in productosinternos %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-  datasets: [{
-	data: [{% for p in productosinternos %}"{{p.pk__count}}",{%endfor%}],
-	backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-	hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-	hoverBorderColor: "rgba(234, 236, 244, 1)",
-  }],
-},
-options: {
-  maintainAspectRatio: false,
-  tooltips: {
-	backgroundColor: "rgb(255,255,255)",
-	bodyFontColor: "#858796",
-	borderColor: '#dddfeb',
-	borderWidth: 1,
-	xPadding: 15,
-	yPadding: 15,
-	displayColors: false,
-	caretPadding: 10,
-  },
-  legend: {
-	display: false
-  },
-  cutoutPercentage: 80,
-},
+  return dy;
 });
 
-// Set new default font family and font color to mimic Bootstrap's default styling
+var valueAxis = {{d.chart1}}.yAxes.push(new am4charts.ValueAxis());
 
-// Bar Chart Example
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
+// Create series
+var series = {{d.chart1}}.series.push(new am4charts.ColumnSeries());
+series.dataFields.valueY = "visits";
+series.dataFields.categoryX = "country";
+series.name = "Visits";
+series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+series.columns.template.fillOpacity = .8;
 
-function number_format(number, decimals, dec_point, thousands_sep) {
-// *     example: number_format(1234.56, 2, ',', ' ');
-// *     return: '1 234,56'
-number = (number + '').replace(',', '').replace(' ', '');
-var n = !isFinite(+number) ? 0 : +number,
-  prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-  sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-  dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-  s = '',
-  toFixedFix = function(n, prec) {
-	var k = Math.pow(10, prec);
-	return '' + Math.round(n * k) / k;
-  };
-// Fix for IE parseFloat(0.55).toFixed(0) = 0;
-s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-if (s[0].length > 3) {
-  s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-}
-if ((s[1] || '').length < prec) {
-  s[1] = s[1] || '';
-  s[1] += new Array(prec - s[1].length + 1).join('0');
-}
-return s.join(dec);
-}
-var ctx = document.getElementById("myBarChart2");
-var myBarChart2 = new Chart(ctx, {
-type: 'bar',
-data: {
-  labels:  [{% for p in productosinternos %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-  datasets: [{
-	label: "Migrantes Externos",
-	backgroundColor: "#4e73df",
-	hoverBackgroundColor: "#2e59d9",
-	borderColor: "#4e73df",
-	data: [{% for p in productosinternos %}{{p.pk__count}},{%endfor%}],
-  }],
-},
-options: {
-  maintainAspectRatio: false,
-  layout: {
-	padding: {
-	  left: 10,
-	  right: 25,
-	  top: 25,
-	  bottom: 0
-	}
-  },
-  scales: {
-	xAxes: [{
-	  time: {
-		unit: 'month'
-	  },
-	  gridLines: {
-		display: true,
-		drawBorder: false
-	  },
-	  ticks: {
-		maxTicksLimit: 6
-	  },
-	  maxBarThickness: 25,
-	}],
-	yAxes: [{
-	  ticks: {
-		min: 0,
-		max: 5,
-		maxTicksLimit: 5,
-		padding: 3,
-		// Include a dollar sign in the ticks
-		callback: function(value, index, values) {
-		  return number_format(value);
-		}
-	  },
-	  gridLines: {
-		color: "rgb(234, 236, 244)",
-		zeroLineColor: "rgb(234, 236, 244)",
-		drawBorder: false,
-		borderDash: [2],
-		zeroLineBorderDash: [2]
-	  }
-	}],
-  },
-  legend: {
-	display: true
-  },
-  tooltips: {
-	titleMarginBottom: 10,
-	titleFontColor: '#6e707e',
-	titleFontSize: 15,
-	backgroundColor: "rgb(255,255,255)",
-	bodyFontColor: "#858796",
-	borderColor: '#dddfeb',
-	borderWidth: 1,
-	xPadding: 15,
-	yPadding: 15,
-	displayColors: false,
-	caretPadding: 10,
-	callbacks: {
-	  label: function(tooltipItem, chart) {
-		var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-		return datasetLabel + ':  Retornados ' + number_format(tooltipItem.yLabel);
-	  }
-	}
-  },
-}
-});
-//////////////////////////////////////////////////////////////////////////////////////////////
-  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-  Chart.defaults.global.defaultFontColor = '#858796';
-
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart3");
-
-//Productos
-var myPieChart3 = new Chart(ctx, {
-type: 'pie',
-data: {
-  labels: [{% for p in productossinregistro %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-  datasets: [{
-	data: [{% for p in productossinregistro %}"{{p.pk__count}}",{%endfor%}],
-	backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-	hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-	hoverBorderColor: "rgba(234, 236, 244, 1)",
-  }],
-},
-options: {
-  maintainAspectRatio: false,
-  tooltips: {
-	backgroundColor: "rgb(255,255,255)",
-	bodyFontColor: "#858796",
-	borderColor: '#dddfeb',
-	borderWidth: 1,
-	xPadding: 15,
-	yPadding: 15,
-	displayColors: false,
-	caretPadding: 10,
-  },
-  legend: {
-	display: false
-  },
-  cutoutPercentage: 80,
-},
+var columnTemplate = series.columns.template;
+columnTemplate.strokeWidth = 1;
+columnTemplate.strokeOpacity = 1;
+{%endfor%}
 });
 
-// Set new default font family and font color to mimic Bootstrap's default styling
-
-// Bar Chart Example
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
-
-function number_format(number, decimals, dec_point, thousands_sep) {
-// *     example: number_format(1234.56, 2, ',', ' ');
-// *     return: '1 234,56'
-number = (number + '').replace(',', '').replace(' ', '');
-var n = !isFinite(+number) ? 0 : +number,
-  prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-  sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-  dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-  s = '',
-  toFixedFix = function(n, prec) {
-	var k = Math.pow(10, prec);
-	return '' + Math.round(n * k) / k;
-  };
-// Fix for IE parseFloat(0.55).toFixed(0) = 0;
-s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-if (s[0].length > 3) {
-  s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-}
-if ((s[1] || '').length < prec) {
-  s[1] = s[1] || '';
-  s[1] += new Array(prec - s[1].length + 1).join('0');
-}
-return s.join(dec);
-}
-var ctx = document.getElementById("myBarChart3");
-var myBarChart3 = new Chart(ctx, {
-type: 'bar',
-data: {
-  labels:  [{% for p in productossinregistro %}"{{p.subcategoria__categoria__descripcion}}",{%endfor%}],
-  datasets: [{
-	label: "Migrantes Externos",
-	backgroundColor: "#4e73df",
-	hoverBackgroundColor: "#2e59d9",
-	borderColor: "#4e73df",
-	data: [{% for p in productossinregistro %}{{p.pk__count}},{%endfor%}],
-  }],
-},
-options: {
-  maintainAspectRatio: false,
-  layout: {
-	padding: {
-	  left: 10,
-	  right: 25,
-	  top: 25,
-	  bottom: 0
-	}
-  },
-  scales: {
-	xAxes: [{
-	  time: {
-		unit: 'month'
-	  },
-	  gridLines: {
-		display: true,
-		drawBorder: false
-	  },
-	  ticks: {
-		maxTicksLimit: 6
-	  },
-	  maxBarThickness: 25,
-	}],
-	yAxes: [{
-	  ticks: {
-		min: 0,
-		max: 5,
-		maxTicksLimit: 5,
-		padding: 3,
-		// Include a dollar sign in the ticks
-		callback: function(value, index, values) {
-		  return number_format(value);
-		}
-	  },
-	  gridLines: {
-		color: "rgb(234, 236, 244)",
-		zeroLineColor: "rgb(234, 236, 244)",
-		drawBorder: false,
-		borderDash: [2],
-		zeroLineBorderDash: [2]
-	  }
-	}],
-  },
-  legend: {
-	display: true
-  },
-  tooltips: {
-	titleMarginBottom: 10,
-	titleFontColor: '#6e707e',
-	titleFontSize: 15,
-	backgroundColor: "rgb(255,255,255)",
-	bodyFontColor: "#858796",
-	borderColor: '#dddfeb',
-	borderWidth: 1,
-	xPadding: 15,
-	yPadding: 15,
-	displayColors: false,
-	caretPadding: 10,
-	callbacks: {
-	  label: function(tooltipItem, chart) {
-		var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-		return datasetLabel + ':  Retornados ' + number_format(tooltipItem.yLabel);
-	  }
-	}
-  },
-}
-});
-
-	} );
 </script>
 
 

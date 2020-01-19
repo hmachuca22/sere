@@ -59,4 +59,8 @@ urlpatterns = [
 	url(r'^historial/listar/(?P<pk>\d+)/$',Listarhistorial.as_view(model=DETALLESACE), name='listar_sace'),
 	url(r'^historial/listar/sace/(?P<pk>\d+)/$',Listarhistorialtodos.as_view(model=DETALLESACE), name='listar_sace_todos'),
 
+
+    # Filtrado de Municipios
+    url(r'^catalago/get_municipios/$', get_municipios, name='get_municipios'),
+
 ]

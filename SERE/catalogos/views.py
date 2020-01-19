@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 import json
+from django.http import JsonResponse
 
 from catalogos.models import Categoria
 from catalogos.models import SubCategoria
@@ -255,6 +256,7 @@ class ProductoNew(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         #departamento = SubCategoria.objects.filter(pk = form.subcategoria)
+        print(form)
         if form.is_valid():
             cate = request.POST['subcategoria']
             departamento = SubCategoria.objects.filter(pk = cate).order_by('-id')[:1].values('categoria__pk')
@@ -979,4 +981,22 @@ class ProductoSinregistroDetailView(View):
         else:
             context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
         return render(request, 'catalogos/informacion_list.html', context)
-    
+
+def get_municipios(request):
+    departamento_id = request.GET.get('departamento_id')    
+    options = '<option value="" selected="selected">---------</option>'
+    if departamento_id:
+        municipios = SubCategoria.objects.filter(categoria_id = departamento_id)
+    for municipio in municipios:
+        options += '<option value="%s">%s</option>' % (
+            municipio.pk,
+            municipio.descripcion
+        )
+    response = {}
+    response['municipios'] = options
+    return JsonResponse(response)
+
+
+
+
+

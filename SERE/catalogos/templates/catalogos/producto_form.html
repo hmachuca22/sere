@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
+{% load static%}
 {% block contenido %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 <form method="POST">
 
     <div class="panel panel-default">
@@ -19,13 +22,24 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                            <div class="form-row" >
+                            <div class="form-row" >                                    
                                     <div class="col-6">
                                     <strong>
-                                    <label class="control-label" for="inputSuccess">Origen</label>
-                                    {{form.origen}}
+                                    <label class="control-label" for="inputSuccess">Departamento de origen:    </label>                                                                      
                                     </strong>
+                                    <select class="form-control" id="departamentos" class="form-control" id="devicePicker" data-live-search="true"  data-none-results-text="I found no results">
+                                        {% for d in Departamentos %}
+                                            <option value={{d.id}}>{{d.descripcion}}</option> 
+                                        {% endfor %}
+                                          </select>                                    
                                     </div>
+                                    <div class="col-6">
+                                        <strong><label class="control-label"   for="inputSuccess">Municipio de origen:   </label>
+                                        </strong>
+                                            <select class="form-control" name= 'origen' id="origen" data-live-search="true"  required data-none-results-text="No hay resultados">                                               
+                                                <option value=""> Ningún Elemento cargado</option> 
+                                            </select>                                    
+                                    </div>                                    
                             </div>
                     </div>
             </div>
@@ -42,10 +56,24 @@
                             <div class="form-row" >
                                     <div class="col-6">
                                     <strong>
-                                    <label class="control-label" for="inputSuccess">Region</label>
-                                    {{form.subcategoria}}
+                                    <label class="control-label" for="inputSuccess">Departamento destino:    </label>                                                                      
                                     </strong>
+                                    <select class="form-control" id="departamentos2" class="form-control" id="devicePicker" data-live-search="true"  data-none-results-text="I found no results">
+                                        {% for d in Departamentos %}
+                                            <option value={{d.id}}>{{d.descripcion}}</option> 
+                                        {% endfor %}
+                                          </select>                                    
                                     </div>
+                                    <div class="col-6">
+                                        <strong><label class="control-label"   for="inputSuccess">Municipio destino:  </label>
+                                        </strong>
+                                            <select class="form-control" name="subcategoria" id="id_subcategoria" data-live-search="true" required  data-none-results-text="No hay resultados">                                               
+                                                <option value=""> Ningún Elemento cargado</option> 
+                                            </select>                                    
+                                    </div>                                    
+                            </div>
+                            <br>
+                            <div class="form-row" >                                    
                                     <div class="col-6">
                                     <strong>
                                         <label class="control-label" for="inputSuccess">Centro Educativo</label>
@@ -258,6 +286,69 @@
 			    </div>
 			</div>
     </div>
-
 </form>
+<script src="{% static 'base/js/jquery.min.js' %}"></script>  
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+<script src="{% static 'base/js/chosen.jquery.min.js' %}"></script>
+
+<script type="text/javascript">
+
+ $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+    $('#departamentos').select2();
+    $('#departamentos2').select2();
+    $('#origen').select2();
+    $('#id_subcategoria').select2();
+    $('#id_identidadext').select2({language: "es"});
+    $('#departamentos').on("change", function() {
+            $('.select').chosen({ width:'200px' });
+            var departamento_id = $("#departamentos").val();
+            if (departamento_id) {
+                // Eliminamos las opciones anteriores del select
+                $("#origen").html("");
+                var request = $.ajax({
+                    type: "GET",
+                    url: "{% url 'catalogos:get_municipios' %}",
+                    data: {
+                        "departamento_id": departamento_id,
+                    },
+                });
+                request.done(function(response) {
+                    // Agregamos los resultados al select                    
+                    $("#origen").html(response.municipios);                    
+                });
+                } else {
+                    $("#origen").html("<option value='' selected='selected'>---------</option>");                                    
+                }
+        });
+    
+        $("#departamentos2").on("change", function() {
+            var departamento_id = $("#departamentos2").val();
+            if (departamento_id) {
+                // Eliminamos las opciones anteriores del select
+                $("#id_subcategoria").html("");
+                var request = $.ajax({
+                    type: "GET",
+                    url: "{% url 'catalogos:get_municipios' %}",
+                    data: {
+                        "departamento_id": departamento_id,
+                    },
+                });
+                request.done(function(response) {
+                    // Agregamos los resultados al select                    
+                    $("#id_subcategoria").html(response.municipios);                    
+                });
+                } else {
+                    $("#id_subcategoria").html("<option value='' selected='selected'>---------</option>");                                    
+                }
+        });
+    }); 
+    
+
+ </script>
+
+
+
 {% endblock contenido %}

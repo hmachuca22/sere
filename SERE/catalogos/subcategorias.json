@@ -2,9 +2,16 @@
     {
       "model": "catalogos.SubCategoria",      
       "fields": {
-        "categoria": 2,
-        "codigo": "0202",
-        "descripcion": "Bonito Oriental"
+        "subcategoria": 2,
+        "identidadext": "0801198716778",
+        "genero": "Masculino",
+        "edad": "15",
+        "descripcion": "Prueba",
+        "descripcion": "Prueba",
+        "descripcion": "Prueba",
+        "descripcion": "Prueba",
+        "descripcion": "Prueba",
+
       }
     },
     {
