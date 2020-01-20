@@ -48,23 +48,13 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
         #filtramos el contexto con el arreglo anterior
         context['Cantidad']= len(departamentos)
         if  self.request.user.is_superuser:
-            Departamentos_graficos = []            
-            depa = Categoria.objects.all()
-            for a in depa:
-                Departamentos_graficos.append({
-                    'id' : a.pk,
-                    'div': 'chartdivpie' + str(a.pk), 
-                    'div1': 'chartdivbar' + str(a.pk), 
-                    'chart' : 'chartpie' + str(a.pk),
-                    'chart1' : 'chartbar' + str(a.pk)
-                })                         
+            Departamentos_graficos = []                                    
             context['Departamentos'] = Categoria.objects.all()
             productos = Producto.objects.values( 'subcategoria__categoria__pk',
                  'subcategoria__categoria__descripcion','genero'
                 ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
-               )
-            
+               )            
             #productos = Producto.objects.all().values('subcategoria__categoria__descripcion'
             #       ).annotate(Count('pk'))
             productosinternos = ProductoINTERNO.objects.all().values(
@@ -87,8 +77,7 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
             productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
                       'subcategoria__categoria__descripcion'
                    ).annotate(Count('pk'))
-        p1 = []
-        print(productos)
+        p1 = []        
         for p in productos:
             p1.append(
             {
@@ -97,9 +86,23 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
                 'Departamento' : p['subcategoria__categoria__descripcion'] ,
                 'Genero' : p['genero'],
                 'Cantidad' : p['pk__count']             
-            })
+            })        
+        p3 = Producto.objects.values( Year=Extract('creado','year')).distinct().order_by('-Year')
+        depa = Categoria.objects.all()
+        for y in p3:
+            for a in depa:                
+                Departamentos_graficos.append({
+                    'year': y['Year'],
+                    'id' : a.pk,
+                    'div': 'chartdivpie' + str(a.pk) + str(y['Year']),
+                    'div1': 'chartdivbar' + str(a.pk) + str(y['Year']), 
+                    'chart' : 'chartpie' + str(a.pk) + str(y['Year']), 
+                    'chart1' : 'chartbar' + str(a.pk) + str(y['Year'])
+                    })      
+
         context['dep_grap'] = Perfil.objects.filter(user = self.request.user)
         context['productos'] = p1
+        context['anios'] = p3
         context['productosinternos'] = productosinternos
         context['productossinregistro'] = productossinregistro
         context['departamentos_graficos'] = Departamentos_graficos
