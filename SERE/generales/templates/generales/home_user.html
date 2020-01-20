@@ -257,7 +257,7 @@ series.dataFields.category = "country";
 var {{d.chart1}} = am4core.create("{{d.div1}}", am4charts.XYChart);
 {{d.chart1}}.data = [
   {% for p in productos %}	
-		{% if p.pk  == d.id %}			
+	{% if p.pk  == d.id and p.year == d.year  %}
       {	
 				{% if p.Genero == '1' %}	
 				"country" : "Masculino",

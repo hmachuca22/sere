@@ -1,0 +1,424 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+	
+    <title>
+            {% block head_title %}
+            SERE | HONDURAS
+            {% endblock head_title  %}
+    </title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+	<link href="{% static 'base/source/bootstrap-3.3.6-dist/css/bootstrap.css'%}" rel="stylesheet">
+	<link href="{% static 'base/source/font-awesome-4.5.0/css/font-awesome.css'%}" rel="stylesheet">
+	<link href="{% static 'base/style/slider.css'%}" rel="stylesheet">
+    <link href="{% static 'base/style/mystyle.css'%}" rel="stylesheet">
+    
+    
+
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header">
+			<ul class="socialicon">
+				<li><a href="https://www.facebook.com/sistemaestadisticodereinsercionescolarhn/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="https://twitter.com/DeEstadistico" target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+			</ul>
+			<ul class="givusacall">
+				
+				
+				
+				<li>Tel : LINEA 104 // SECRETARIA DE EDUCACIÓN 2222-1374; 22221225 EXT. 4165</li>
+				
+				</ul>
+			
+			<ul class="logreg">
+				<li><a href="{%url 'generales:home_user'%}"> INICIAR SESIÓN </a> </li>
+				
+			</ul>
+			
+	</div>
+	<!-- Navbar Up -->
+	<nav class="topnavbar navbar-default topnav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
+					<span class="sr-only"> Toggle navigaion</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand logo" href="{% url 'generales:home'%}"><img src="{% static 'base/image/logo1.png'%}" alt="logo"></a>
+				
+			</div>	 
+		</div>
+		<div class="collapse navbar-collapse" id="upmenu">
+			<ul class="nav navbar-nav" id="navbarontop">
+				<li class="active"><a href="#">PRINCIPAL</a> </li>
+				<li class="active"><a href="{% url 'generales:estadisticas'%}">ESTADISTICAS</a> </li>
+				<li class="active"><a href="#">CONTACTO</a> </li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DESCARGAS<span class="caret"></span></a>
+					<ul class="dropdown-menu dropdowncostume">
+						<li><a href="C:\python\cmder\APP_SERE_1\SERE\static\base\descargas">MANUAL DE USUARIO</a></li>
+						<li><a href="C:\python\cmder\APP_SERE_1\SERE\static\base\descargas">FORMATO DE DIAGNOSTICO NNA</a></li>
+
+			
+				
+				
+			</ul>
+			
+		</div>
+	</nav>
+</div>
+<!--_______________________________________ __________________________________ -->
+<div class="allcontain">
+		{% block contenido %}
+		<style>
+			{% for a in anios %}
+				{% for d in Departamentos%}
+				#chartdivpie{{d.id}}{{a.Year}} {
+					width: 80%;
+					height: 80%;
+				}
+				{% endfor %}		
+			{% endfor %}
+				</style>
+		 <!-- Begin Page Content -->
+		 <div class="container-fluid">        
+				<!-- tabs de departamentos -->		
+				<nav>			
+			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+				{% for d in Departamentos%}
+						{% if d.pk == 3%}			
+							<a class="nav-item nav-link active" id="nav-{{d.descripcion}}-tab" data-toggle="tab" href="#nav-{{d.pk}}" role="tab" aria-controls="nav-{{d.pk}}" aria-selected="true">{{d.descripcion}}</a>				
+						{% else %}				
+							<a class="nav-item nav-link" id="nav-{{d.pk}}-tab" data-toggle="tab" href="#nav-{{d.pk}}" role="tab" aria-controls="nav-{{d.pk}}" aria-selected="false">{{d.descripcion}}</a>				
+							{% endif %}
+				{% endfor %}		
+				</div>
+			</nav>
+			
+			<div class="tab-content" id="nav-tabContent">		
+				{% for d in Departamentos%}		
+						{% if d.pk == 3%}
+						<div class="tab-pane fade show active" id="nav-{{d.pk}}" role="tabpanel" aria-labelledby="nav-{{d.pk}}-tab">
+								<div id="accordion">
+										{% for a in anios %}
+											<div class="card">
+												<div class="card-header" id="heading{{a.Year}}">
+													<h5 class="mb-0">
+														<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{a.Year}}" aria-expanded="true" aria-controls="collapseOne">
+															{{a.Year}}
+														</button>
+													</h5>
+												</div>
+												{% if a.Year == '2020' %}		
+												<div id="collapse{{a.Year}}" class="collapse show" aria-labelledby="heading{{a.Year}}" data-parent="#accordion">
+													<div class="card-body">
+															<div class="card">
+																	<div class="card-header">
+																	<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel </h6>
+																	</div>
+																	<div class="card-body">
+																	<div class="chart-bar">
+																			<div id="chartdivpie{{d.pk}}{{a.Year}}"></div>
+																	</div>
+																	<hr>
+																	Grafico que representa los  Migrantes Internos registrados en el sistema
+																	</div>
+															</div>
+															<div class="card">
+																	<div class="card-header">
+																	<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras </h6>
+																	</div>
+																	<div class="card-body">
+																	<div class="chart-bar">
+																			<div id="chartdivbar{{d.pk}}{{a.Year}}"></div>
+																	</div>
+																	<hr>														
+																	Grafico que representa los  Migrantes Internos registrados en el sistema
+																	</div>
+															</div>
+													</div>
+												</div>				
+												{% else %}
+												<div id="collapse{{a.Year}}" class="collapse show" aria-labelledby="heading{{a.Year}}" data-parent="#accordion">
+														<div class="card-body">
+																<div class="card">
+																		<div class="card-header">
+																		<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel </h6>
+																		</div>
+																		<div class="card-body">
+																		<div class="chart-bar">
+																				<div id="chartdivpie{{d.pk}}{{a.Year}}"></div>
+																		</div>
+																		<hr>
+																		Grafico que representa los  Migrantes Internos registrados en el sistema
+																		</div>
+																</div>
+																<div class="card">
+																		<div class="card-header">
+																		<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras </h6>
+																		</div>
+																		<div class="card-body">
+																		<div class="chart-bar">
+																				<div id="chartdivbar{{d.pk}}{{a.Year}}"></div>
+																		</div>
+																		<hr>
+																		{% for a in anios %}
+																		<h4>{{a.Year}} </h4>
+																		{% endfor %}
+																		Grafico que representa los  Migrantes Internos registrados en el sistema
+																		</div>
+																</div>
+														</div>
+													</div>
+													{% endif %}
+											</div>
+										{% endfor %}
+							</div>						
+						</div>
+						{% else %}
+						<div class="tab-pane fade" id="nav-{{d.pk}}" role="tabpanel" aria-labelledby="nav-{{d.pk}}-tab">
+								<div id="accordion">
+										{% for a in anios %}
+											<div class="card">
+												<div class="card-header" id="heading{{a.Year}}">
+													<h5 class="mb-0">
+														<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{a.Year}}" aria-expanded="true" aria-controls="collapseOne">
+															{{a.Year}}
+														</button>
+													</h5>
+												</div>
+												{% if a.Year == '2020' %}		
+												<div id="collapse{{a.Year}}" class="collapse show" aria-labelledby="heading{{a.Year}}" data-parent="#accordion">
+													<div class="card-body">
+															<div class="card">
+																	<div class="card-header">
+																	<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel </h6>
+																	</div>
+																	<div class="card-body">
+																	<div class="chart-bar">
+																			<div id="chartdivpie{{d.pk}}{{a.Year}}"></div>
+																	</div>
+																	<hr>
+																	Grafico que representa los  Migrantes Internos registrados en el sistema
+																	</div>
+															</div>
+															<div class="card">
+																	<div class="card-header">
+																	<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras </h6>
+																	</div>
+																	<div class="card-body">
+																	<div class="chart-bar">
+																			<div id="chartdivbar{{d.pk}}{{a.Year}}"></div>
+																	</div>
+																	<hr>
+																	{% for a in anios %}
+																	<h4>{{a.Year}} </h4>
+																	{% endfor %}
+																	Grafico que representa los  Migrantes Internos registrados en el sistema
+																	</div>
+															</div>
+													</div>
+												</div>				
+												{% else %}
+												<div id="collapse{{a.Year}}" class="collapse show" aria-labelledby="heading{{a.Year}}" data-parent="#accordion">
+														<div class="card-body">
+																<div class="card">
+																		<div class="card-header">
+																		<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Pastel </h6>
+																		</div>
+																		<div class="card-body">
+																		<div class="chart-bar">
+																				<div id="chartdivpie{{d.pk}}{{a.Year}}"></div>
+																		</div>
+																		<hr>
+																		Grafico que representa los  Migrantes Internos registrados en el sistema
+																		</div>
+																</div>
+																<div class="card">
+																		<div class="card-header">
+																		<h6 class="m-0 font-weight-bold text-primary">Migrantes Internos por Genero {{d.descripcion}} Barras </h6>
+																		</div>
+																		<div class="card-body">
+																		<div class="chart-bar">
+																				<div id="chartdivbar{{d.pk}}{{a.Year}}"></div>
+																		</div>
+																		<hr>
+																		{% for a in anios %}
+																		<h4>{{a.Year}} </h4>
+																		{% endfor %}
+																		Grafico que representa los  Migrantes Internos registrados en el sistema
+																		</div>
+																</div>
+														</div>
+													</div>
+													{% endif %}
+											</div>
+										{% endfor %}
+							</div>
+						</div>		
+						{% endif %}				
+				{% endfor %}	
+			</div>								
+		  </div>		
+			<!-- /.container-fluid -->
+			<!-- Resources -->
+			<script src="{% static 'base/js/graficos/core.js' %}"></script>	
+			<script src="{% static 'base/js/graficos/charts.js' %}"></script>
+			<script src="{% static 'base/js/graficos/animated.js' %}"></script>		
+			<script src="https://www.amcharts.com/lib/4/themes/frozen.js"></script>
+		
+		  <script src="{% static 'base/js/jquery.min.js' %}"></script>
+		  <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+		
+		  <!-- Core plugin JavaScript-->
+		  <script src="{% static 'base/js/jquery.easing.min.js' %}"></script>
+		
+		  <!-- Custom scripts for all pages-->
+		  <script src="{% static 'base/js/sb-admin-2.min.js' %}"></script>
+		
+		  <!-- Page level plugins -->
+		  <script src="{% static 'base/vendor/chart.js/Chart.min.js' %}"></script>
+		
+		  <!-- Page level custom scripts archivos -->
+		  <!--<script src="{% static 'base/js/demo/chart-area-demo.js' %}"></script>-->
+		<script>
+		am4core.ready(function() {
+		
+		// Themes begin
+		am4core.useTheme(am4themes_frozen);
+		am4core.useTheme(am4themes_animated);
+		
+		  
+		{% for d in departamentos_graficos %}
+		// Primer Grafico Pastel
+		var {{d.chart}} = am4core.create("{{d.div}}", am4charts.PieChart3D);
+		{{d.chart}}.hiddenState.properties.opacity = 0; // this creates initial fade-in
+		{{d.chart}}.data = [	
+			{% for p in productos %}		
+				{% if p.pk  == d.id and p.year == d.year  %}
+			  {	
+						{% if p.Genero == '1' %}	
+						"country" : "Masculino",
+						{%else%}
+						"country" : "Femenino",
+						{% endif %}
+						"litres" : {{p.Cantidad}} 
+					},
+				 {% endif %}			
+					{%endfor%}
+				];
+					//{{d.chart}}.innerRadius = am4core.percent(40);
+					//{{d.chart}}.depth = 120;
+					{{d.chart}}.legend = new am4charts.Legend();
+		var series = {{d.chart}}.series.push(new am4charts.PieSeries3D());
+		series.dataFields.value = "litres";
+		//series.dataFields.depthValue = "litres";
+		series.dataFields.category = "country";
+		//series.slices.template.cornerRadius = 5;
+		//series.colors.step = 3;
+		// cointainer to hold both charts
+		// Create axes
+		// Grafico de Barras
+		
+		var {{d.chart1}} = am4core.create("{{d.div1}}", am4charts.XYChart);
+		{{d.chart1}}.data = [
+		  {% for p in productos %}	
+			{% if p.pk  == d.id and p.year == d.year  %}
+			  {	
+						{% if p.Genero == '1' %}	
+						"country" : "Masculino",
+						{%else%}
+						"country" : "Femenino",
+						{% endif %}
+						"visits" : {{p.Cantidad}} 
+					},
+				 {% endif %}
+					{%endfor%}];
+		var categoryAxis = {{d.chart1}}.xAxes.push(new am4charts.CategoryAxis());
+		categoryAxis.dataFields.category = "country";
+		categoryAxis.renderer.grid.template.location = 0;
+		categoryAxis.renderer.minGridDistance = 60;
+		
+		categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+		  if (target.dataItem && target.dataItem.index & 2 == 2) {
+			return dy + 25;
+		  }
+		  return dy;
+		});
+		
+		var valueAxis = {{d.chart1}}.yAxes.push(new am4charts.ValueAxis());
+		
+		// Create series
+		var series = {{d.chart1}}.series.push(new am4charts.ColumnSeries());
+		series.dataFields.valueY = "visits";
+		series.dataFields.categoryX = "country";
+		series.name = "Visits";
+		series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+		series.columns.template.fillOpacity = .8;
+		
+		var columnTemplate = series.columns.template;
+		columnTemplate.strokeWidth = 1;
+		columnTemplate.strokeOpacity = 1;
+		{%endfor%}
+		});
+		
+		</script>
+		
+		
+		{% endblock contenido%}
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+		<div class="bottomlogo">
+		<span class="dotlogo">&bullet;</span><img src="{% static 'base/image/logo2.png'%}" alt="logo2"><span class="dotlogo">&bullet;;</span>
+		<ul class="nav">
+			<li role="presentation"><a href="#">HOME</a></li>
+			<li role="presentation"><a href="#/">DESCARGAS</a></li>
+			<li role="presentation"><a href="#/">ESTADISTICAS</a></li>
+			<li role="presentation"><a href="#/">CONTACTO</a></li>
+		</ul>
+		
+		CORREO: nnamigrantes@gmail.com <br>
+		"Juntos estamos logrando la transformación del Sistema Educativo Nacional" 
+		</div>
+		<div style="align-content: center; padding-left: 27%;padding-right: 27%;">
+		
+		
+	</div>
+	
+		 <img src="{% static 'base/image/line.png'%}" alt="line"> <br>
+		 <div class="bottomsocial">
+	        <a href="https://www.facebook.com/sistemaestadisticodereinsercionescolarhn/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a>
+		    <a href="https://twitter.com/DeEstadistico" target="_blank"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+			<a href="#"><i class="fa fa-youtube"></i></a>
+		</div>
+			<div class="footer">
+				<div class="copyright">
+				  &copy; Copy right 2020 | <a href="#">SERE 2020 </a>| <a href="#">SEDUC HN CORREO: nnamigrantes@gmail.com </a>
+				</div>
+				
+			</div>
+	</div>
+</div>
+
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/jquery.js'%}"></script>
+<script src="{% static 'base/source/js/isotope.js'%}"></script>
+<script src="{% static 'base/source/js/myscript.js'%}"></script> 
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/jquery.1.11.js'%}"></script>
+<script src="{% static 'base/source/bootstrap-3.3.6-dist/js/bootstrap.js'%}"></script>
+</body>
+</html>
