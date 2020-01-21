@@ -34,6 +34,7 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
         #Declaramos el arreglo departamento
         dep_grap = []
         departamentos = []
+        Departamentos_graficos = []
         context = super(Home_user, self).get_context_data(**kwargs)
         #recorremos los departamentos a los cuales tiene acceso el usuario
 
@@ -55,33 +56,35 @@ class Home_user(LoginRequiredMixin, generic.TemplateView):
                 ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                )                        
-            productosinternos = ProductoINTERNO.objects.all().values(
-                      'subcategoria__categoria__descripcion','estado'
+            productosinternos = ProductoINTERNO.objects.values( 'subcategoria__categoria__pk',
+                      'subcategoria__categoria__descripcion','genero'
                    ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                    ) 
-            productossinregistro = ProductoSINREGISTRO.objects.all().values(
-                      'subcategoria__categoria__descripcion','estado'
+            productossinregistro = ProductoSINREGISTRO.objects.values( 'subcategoria__categoria__pk',
+                      'subcategoria__categoria__descripcion','genero'
                     ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                     ) 
         else:
+            print('No es super user')
             context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
             #Productos Externos
-            productos = Producto.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
+            productos = Producto.objects.filter(subcategoria__categoria__pk__in =departamentos).values( 'subcategoria__categoria__pk',
+                      'subcategoria__categoria__descripcion','genero'
                     ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                             ) 
+            print(productos)
 		    #Productos Internos
-            productosinternos = ProductoINTERNO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
+            productosinternos = ProductoINTERNO.objects.filter(subcategoria__categoria__pk__in =departamentos).values( 'subcategoria__categoria__pk',
+                      'subcategoria__categoria__descripcion','genero'
                     ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                     ) 
 		    #Productos Sin registro
-            productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values(
-                      'subcategoria__categoria__descripcion'
+            productossinregistro = ProductoSINREGISTRO.objects.filter(subcategoria__categoria__pk__in =departamentos).values( 'subcategoria__categoria__pk',
+                      'subcategoria__categoria__descripcion','genero'
                     ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                     ) 
@@ -122,10 +125,10 @@ class estadisticasall(generic.TemplateView):
         #Declaramos el arreglo departamento
         dep_grap = []
         departamentos = []
+        Departamentos_graficos = []
         context = super(estadisticasall, self).get_context_data(**kwargs)                        
         context['Cantidad']= len(departamentos)
-        if  self.request.user.is_superuser:
-            Departamentos_graficos = []                                    
+        if  self.request.user.is_superuser:            
             context['Departamentos'] = Categoria.objects.all()
             productos = Producto.objects.values( 'subcategoria__categoria__pk',
                  'subcategoria__categoria__descripcion','genero'
@@ -133,12 +136,12 @@ class estadisticasall(generic.TemplateView):
                     Count('pk'), Year=Extract('creado','year')                
                )                        
             productosinternos = ProductoINTERNO.objects.all().values(
-                      'subcategoria__categoria__descripcion','estado'
+                      'subcategoria__categoria__descripcion','genero'
                    ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                    ) 
             productossinregistro = ProductoSINREGISTRO.objects.all().values(
-                      'subcategoria__categoria__descripcion','estado'
+                      'subcategoria__categoria__descripcion','genero'
                     ).annotate(
                     Count('pk'), Year=Extract('creado','year')                
                     )        
@@ -151,7 +154,7 @@ class estadisticasall(generic.TemplateView):
                 'Departamento' : p['subcategoria__categoria__descripcion'] ,
                 'Genero' : p['genero'],
                 'Cantidad' : p['pk__count']             
-            })        
+            })                    
         p3 = Producto.objects.values( Year=Extract('creado','year')).distinct().order_by('-Year')
         depa = Categoria.objects.all()
         for y in p3:
