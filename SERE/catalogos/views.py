@@ -363,6 +363,23 @@ class ProductoNewSINREGISTRO(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegi
         else:
             messages.add_message(request,messages.ERROR,'Error al guardar el registro')
             return render(request, self.template_name, {'form': form})
+    
+    def get_context_data(self,**kwargs):
+        #Declaramos el arreglo departamento
+        departamentos = []
+        #recorremos los departamentos a los cuales tiene acceso el usuario
+        context = super().get_context_data(**kwargs)
+        for p in Perfil.objects.filter(user = self.request.user):
+            departamentos.append(
+                    p.departamento.id
+            )
+        #filtramos el contexto con el arreglo anterior
+        context['Cantidad']= len(departamentos)
+        if  self.request.user.is_superuser:
+            context['Departamentos'] = Categoria.objects.all()
+        else:
+            context['Departamentos'] = Categoria.objects.filter(pk__in= departamentos)
+        return context    
 
 class ProductoEdit(SuccessMessageMixin,LoginRequiredMixin,SinPrivilegios,generic.UpdateView):
     permission_required = "catalogos.change_producto"
